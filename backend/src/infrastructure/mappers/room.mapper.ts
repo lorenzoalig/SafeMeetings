@@ -5,9 +5,6 @@ import { RoomResponseDto } from "src/domain/dtos/room/room-response.dto";
 import { UpdateRoomDto } from "src/domain/dtos/room/update-room.dto";
 
 
-
-
-
 @Injectable()
 export class RoomMapper {
     mapPrismaToRoomResponseDto(prismaRoom: Room): RoomResponseDto {
