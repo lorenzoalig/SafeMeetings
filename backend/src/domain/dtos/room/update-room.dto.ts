@@ -1,19 +1,15 @@
-import { IsBoolean, IsNumber, IsOptional, IsString, Max, MaxLength, Min } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, Max, MaxLength, Min } from "class-validator";
 
 // Room update DTO
 export class UpdateRoomDto {
-    @IsOptional()
+    @IsNotEmpty()
     @IsString()
     @MaxLength(100)
     description: string;
 
-    @IsOptional()
+    @IsNotEmpty()
     @IsNumber()
     @Min(1)
     @Max(5)
     accessLevel: number;
-
-    @IsOptional()
-    @IsBoolean()
-    is_blocked: boolean
 }

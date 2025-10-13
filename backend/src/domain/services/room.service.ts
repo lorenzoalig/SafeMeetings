@@ -1,25 +1,72 @@
 import { Injectable, NotImplementedException } from "@nestjs/common";
+import { RoomRepository } from "src/infrastructure/repositories/room.repository";
+import { RoomResponseDto } from "../dtos/room/room-response.dto";
+import { CreateRoomDto } from "../dtos/room/create-room.dto";
+import { UpdateRoomDto } from "../dtos/room/update-room.dto";
 
 
 @Injectable()
 export class RoomService {
-    showRooms() {
-        throw new NotImplementedException("Error: under construction");
+    constructor(private readonly roomRepository: RoomRepository) {}
+
+    /**
+     * Shows all rooms
+     * @returns room response dto array with all rooms
+     */
+    async showRooms(): Promise<RoomResponseDto[]> {
+        return await this.roomRepository.findAllRooms();
     }
 
-    showSingleRoom(id) {
-        throw new NotImplementedException("Error: under construction");
+    /**
+     * Shows a single room
+     * @param id the room's UUID
+     * @returns the room's response dto
+     */
+    async showSingleRoom(id: string): Promise<RoomResponseDto> {
+        return await this.roomRepository.findRoomById(id);
     }
 
-    createRoom(data) {
-        throw new NotImplementedException("Error: under construction");
+    /**
+     * Creates a new room
+     * @param dto create room dto with the data
+     * @returns the new room's reponse dto
+     */
+    async createRoom(dto: CreateRoomDto): Promise<RoomResponseDto> {
+        return await this.roomRepository.addRoom(dto);
     }
 
-    updateRoom(id, data) {
-        throw new NotImplementedException("Error: under construction");
+    /**
+     * Replaces a room for a new room
+     * @param id the target room's UUID
+     * @param dto update room dto with the new data
+     * @returns the updated room's response dto
+     */
+    async replaceRoom(id: string, dto: UpdateRoomDto): Promise<RoomResponseDto> {
+        return await this.roomRepository.updateRoom(id, dto);
     }
 
-    removeRoom(id) {
-        throw new NotImplementedException("Error: under construction");
+    /**
+     * Toggles locking access to a certain room
+     * @param id the room's UUID
+     * @returns the target room's response dto
+     */
+    async toggleRoomLock(id: string) {
+        const room = await this.roomRepository.findRoomById(id);
+        const dto = {...room}
+
+        if(room.is_blocked)
+            dto.is_blocked = false;
+        else
+            dto.is_blocked = true;
+        return await this.roomRepository.updateRoom(id, dto);
+    }
+
+    /**
+     * Deletes a room (deactivates)
+     * @param id the room's UUID
+     * @returns the deleted room's response dto
+     */
+    async removeRoom(id: string): Promise<RoomResponseDto> {
+        return await this.roomRepository.deleteRoom(id);
     }
 }
