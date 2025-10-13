@@ -4,6 +4,7 @@ import { DataBaseService } from "../services/database.service";
 import { UserMapper } from "../mappers/user.mappers";
 import { CreateUserDto } from "src/domain/dtos/user/create-user.dto";
 import { UpdateUserDto } from "src/domain/dtos/user/update-user.dto";
+import { Prisma } from "generated/prisma-client";
 
 
 @Injectable()
@@ -18,7 +19,7 @@ export class UserRepository {
      * @param userId the user's id
      * @returns a UserResponseDto of the user
      */
-    async findUser(userId: number): Promise<UserResponseDto> {
+    async findUserById(userId: number): Promise<UserResponseDto> {
         const user = await this.dataBaseService.user.findUnique({
             where: {
                 id: userId,
@@ -39,7 +40,7 @@ export class UserRepository {
             where: {deletedAt: null}
         })
         
-        if(!users) throw new NotFoundException("Error: no users registered in the database.")
+        if(users.length == 0) throw new NotFoundException("Error: no users registered in the database.")
         return users.map(user => this.userMapper.mapPrismaToUserResponseDto(user));
     }
 
@@ -48,14 +49,21 @@ export class UserRepository {
      * @param dto a UserCreationDto for the new user
      * @returns a UserResponseDto of the created user
      */
-    async createUser(dto: CreateUserDto): Promise<UserResponseDto> {
+    async addUser(dto: CreateUserDto): Promise<UserResponseDto> {
         const prismaInput = this.userMapper.mapCreateUserDtoToPrismaInput(dto);
-        const user = await this.dataBaseService.user.create({
-            data: prismaInput
-        });
 
-        if(!user) throw new InternalServerErrorException("Error: user could not be created.")
-        return this.userMapper.mapPrismaToUserResponseDto(user);
+        try {
+            const user = await this.dataBaseService.user.create({
+                data: prismaInput
+            });
+            return this.userMapper.mapPrismaToUserResponseDto(user);
+        } catch (error) {
+            if(error instanceof Prisma.PrismaClientKnownRequestError) {
+                if(error.code == "P2002")
+                    throw new InternalServerErrorException(`Error: an user with this ${error.meta?.target} already exists.`);
+            }    
+            throw new InternalServerErrorException(error.message);
+        }
     }
 
     /**

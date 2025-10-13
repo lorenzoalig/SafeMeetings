@@ -22,12 +22,6 @@ export class CreateUserDto {
     })
     password: string;
 
-    @IsNotEmpty()
-    @IsNumber()
-    @Min(1)
-    @Max(5)
-    level: number;
-
     @IsOptional()
     @IsBase64()
     profile_img: string

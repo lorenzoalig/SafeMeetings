@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, ValidationPipe } from "@nestjs/common";
 import { RoomService } from "../services/room.service";
+import { UpdateRoomDto } from "../dtos/room/update-room.dto";
+import { CreateRoomDto } from "../dtos/room/create-room.dto";
 
 
-@Controller("room")
+@Controller("rooms")
 export class RoomController {
     constructor(private readonly roomService: RoomService) {}
 
@@ -12,22 +14,45 @@ export class RoomController {
     }
 
     @Get(":id")
-    getRoom(@Param("id") id: number) {
+    getRoom(@Param("id") id: string) {
         return this.roomService.showSingleRoom(id);
     }
 
     @Post()
-    postRoom(@Body() data: any) {
-        return this.roomService.createRoom(data);
+    postRoom(
+        @Body(new ValidationPipe(
+            {
+                whitelist: true,
+                forbidNonWhitelisted: true,
+                transform: true
+            }
+        )) dto: CreateRoomDto
+    ) {
+        return this.roomService.createRoom(dto);
     }
 
     @Put(":id")
-    putRoom(@Param("id") id: number, @Body() data: any) {
-        return this.roomService.updateRoom(id, data);
+    putRoom(
+        @Param("id") id: string, 
+        @Body(new ValidationPipe(
+            {
+                whitelist: true,
+                forbidNonWhitelisted: true,
+                transform: true
+            }
+        )) dto: UpdateRoomDto
+    ) {
+        return this.roomService.replaceRoom(id, dto);
+    }
+
+    // Alterna entre bloqueada ou não a sala
+    @Patch()
+    lockRoom(@Param("id") id: string) {
+        this.roomService.toggleRoomLock(id);
     }
 
     @Delete(":id")
-    deleteRoom(@Param("id") id: number) {
+    deleteRoom(@Param("id") id: string) {
         return this.roomService.removeRoom(id);
     }
 }

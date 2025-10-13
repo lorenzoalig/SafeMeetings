@@ -1,24 +1,30 @@
 import { Injectable, NotImplementedException } from "@nestjs/common";
+import { UserRepository } from "src/infrastructure/repositories/user.repository";
+import { UserResponseDto } from "../dtos/user/user-response.dto";
+import { CreateUserDto } from "../dtos/user/create-user.dto";
+import { UpdateUserDto } from "../dtos/user/update-user.dto";
 
 @Injectable()
 export class UserService {
-    showUsers() {
-        throw new NotImplementedException("Error: under construction");
+    constructor(private readonly userRepository: UserRepository) {}
+
+    async showAllUsers(): Promise<UserResponseDto[]> {
+        return await this.userRepository.findAllUsers();
     }
 
-    showSingleUser(id: number) {
-        throw new NotImplementedException("Error: under construction");
+    async showSingleUser(id: number): Promise<UserResponseDto> {
+        return await this.userRepository.findUserById(id);
     }
 
-    createUser(data: any) {
-        throw new NotImplementedException("Error: under construction");
+    async createUser(dto: CreateUserDto): Promise<UserResponseDto> {
+        return await this.userRepository.addUser(dto);
     }
 
-    updateUser(id: number, data: any) {
-        throw new NotImplementedException("Error: under construction");
+    async updateUser(id: number, dto: UpdateUserDto): Promise<UserResponseDto> {
+        return await this.userRepository.updateUser(id, dto);
     }
 
-    removeUser(id: number) {
-        throw new NotImplementedException("Error: under construction");
+    async removeUser(id: number) {
+        return await this.userRepository.deleteUser(id);
     }
 }

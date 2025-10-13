@@ -31,8 +31,7 @@ export class RoomMapper {
     mapUpdateRoomDtoToPrismaInput(dto: UpdateRoomDto): Prisma.RoomUpdateInput {
         const prismaInput: Prisma.RoomUpdateInput = {
             description: dto.description,
-            accessLevel: dto.accessLevel,
-            is_blocked: dto.is_blocked
+            accessLevel: dto.accessLevel
         }
         return prismaInput;
     }

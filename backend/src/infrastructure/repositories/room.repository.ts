@@ -15,7 +15,7 @@ export class RoomRepository {
         private readonly roomMapper: RoomMapper
     ) {}
 
-    async findRoom(roomId: string): Promise<RoomResponseDto> {
+    async findRoomById(roomId: string): Promise<RoomResponseDto> {
         const room = await this.dataBaseService.room.findUnique({
             where: {
                 id: roomId,
@@ -27,7 +27,7 @@ export class RoomRepository {
         return this.roomMapper.mapPrismaToRoomResponseDto(room);
     }
 
-    async findRooms(): Promise<RoomResponseDto[]> {
+    async findAllRooms(): Promise<RoomResponseDto[]> {
         const rooms = await this.dataBaseService.room.findMany({
             where: {deletedAt: null}
         });
@@ -36,7 +36,7 @@ export class RoomRepository {
         return rooms.map(room => this.roomMapper.mapPrismaToRoomResponseDto(room));
     }
 
-    async createRoom(dto: CreateRoomDto): Promise<RoomResponseDto> {
+    async addRoom(dto: CreateRoomDto): Promise<RoomResponseDto> {
         const prismaInput = this.roomMapper.mapCreateRoomDtoToPrismaInput(dto);
         const room = await this.dataBaseService.room.create({
             data: prismaInput
