@@ -5,6 +5,8 @@ import { CreateRoomDto } from "../dtos/room/create-room.dto";
 import { UpdateRoomDto } from "../dtos/room/update-room.dto";
 
 
+// FIXME: Move all business logic from the repository to this service
+
 @Injectable()
 export class RoomService {
     constructor(private readonly roomRepository: RoomRepository) {}

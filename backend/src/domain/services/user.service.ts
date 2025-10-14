@@ -1,19 +1,26 @@
-import { Injectable, NotImplementedException } from "@nestjs/common";
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { UserRepository } from "src/infrastructure/repositories/user.repository";
 import { UserResponseDto } from "../dtos/user/user-response.dto";
 import { CreateUserDto } from "../dtos/user/create-user.dto";
 import { UpdateUserDto } from "../dtos/user/update-user.dto";
+import { UserMapper } from "src/infrastructure/mappers/user.mappers";
 
 @Injectable()
 export class UserService {
-    constructor(private readonly userRepository: UserRepository) {}
+    constructor(
+        private readonly userRepository: UserRepository,
+        private readonly userMapper: UserMapper
+    ) {}
 
     /**
      * Shows all users
      * @returns user response dto array of all active users
      */
     async showAllUsers(): Promise<UserResponseDto[]> {
-        return await this.userRepository.findAllUsers();
+        const users = await this.userRepository.findAllUsers();
+
+        if(users.length == 0) throw new NotFoundException("Error: no users have been registered.");
+        return users.map(user => this.userMapper.mapPrismaToUserResponseDto(user));
     }
 
     /**
@@ -21,8 +28,23 @@ export class UserService {
      * @param id the user's id
      * @returns the user's response dto
      */
-    async showSingleUser(id: number): Promise<UserResponseDto> {
-        return await this.userRepository.findUserById(id);
+    async showUserById(id: number): Promise<UserResponseDto> {
+        const user = await this.userRepository.findUserById(id);
+        
+        if(!user) throw new NotFoundException("Error: user not found.");
+        return this.userMapper.mapPrismaToUserResponseDto(user);
+    }
+
+    /**
+     * Shows a single user by email
+     * @param email the user's email
+     * @returns the user's response dto
+     */
+    async showUserByEmail(email: string): Promise<UserResponseDto> {
+        const user = await this.userRepository.findUserByEmail(email);
+        
+        if(!user) throw new NotFoundException("Error: user not found.");
+        return this.userMapper.mapPrismaToUserResponseDto(user);
     }
 
     /**
@@ -31,7 +53,10 @@ export class UserService {
      * @returns the new user's response dto
      */
     async createUser(dto: CreateUserDto): Promise<UserResponseDto> {
-        return await this.userRepository.addUser(dto);
+        const user = await this.userRepository.addUser(dto);
+
+        if(!user) throw new InternalServerErrorException("Error: user could not be created.");
+        return this.userMapper.mapPrismaToUserResponseDto(user);
     }
 
     /**
@@ -41,7 +66,10 @@ export class UserService {
      * @returns the updated user's response dto
      */
     async updateUser(id: number, dto: UpdateUserDto): Promise<UserResponseDto> {
-        return await this.userRepository.updateUser(id, dto);
+        const user = await this.userRepository.updateUser(id, dto);
+        
+        if(!user) throw new InternalServerErrorException("Error: user could not be updated.");
+        return this.userMapper.mapPrismaToUserResponseDto(user);
     }
 
     /**
@@ -49,7 +77,15 @@ export class UserService {
      * @param id the user's id
      * @returns the deleted user's response dto
      */
-    async removeUser(id: number) {
-        return await this.userRepository.deleteUser(id);
+    async removeUser(id: number): Promise<UserResponseDto> {
+        const user = await this.userRepository.findUserById(id);
+
+        if(!user) throw new NotFoundException("Error: user not found.");
+
+        if(user.deletedAt != null) throw new BadRequestException("Error: user is already deleted.");
+        const deletedUser = await this.userRepository.deleteUser(id);
+        
+        if(!deletedUser) throw new InternalServerErrorException("Error: user could not be deleted.");
+        return this.userMapper.mapPrismaToUserResponseDto(deletedUser);
     }
 }
