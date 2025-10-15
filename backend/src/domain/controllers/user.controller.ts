@@ -3,9 +3,10 @@ import { UserService } from "../services/user.service";
 import { CreateUserDto } from "../dtos/user/create-user.dto";
 import { UpdateUserDto } from "../dtos/user/update-user.dto";
 import { UserResponseDto } from "../dtos/user/user-response.dto";
-import { Ranks } from "src/application/decorators/rank.decorator";
+import { IsSelfAllowed, Ranks } from "src/application/decorators/rank.decorator";
 import { RankGuard } from "src/application/guards/rank.guard";
 import { AuthGuard } from "src/application/guards/auth.guard";
+import { Reflector } from "@nestjs/core";
 
 
 @Controller("users")
@@ -61,6 +62,9 @@ export class UserController {
      * @returns the updates user's response dto
      */
     @Patch(":id")
+    @Ranks([5])
+    @IsSelfAllowed(true)
+    @UseGuards(RankGuard)
     async patchUser(
         @Param("id") id: number,
         @Body(new ValidationPipe({
