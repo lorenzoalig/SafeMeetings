@@ -11,11 +11,11 @@ import { RankModule } from "src/application/modules/rank.module";
 @Module({
     imports: [
         DataBaseModule,
-        RankModule,
+        forwardRef(() => RankModule),
         forwardRef(() => AuthModule),
     ],
     controllers: [UserController],
     providers: [UserService, UserRepository, UserMapper],
-    exports: [UserRepository]
+    exports: [UserService, UserRepository]
 })
 export class UserModule {}

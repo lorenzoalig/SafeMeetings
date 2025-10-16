@@ -8,8 +8,8 @@ export class AuthGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();
-        const authorization = request.header.authorization;
-        const token = authorization?.split([' '])[1] ?? null;
+        const authorization = request.headers.authorization;
+        const token = authorization?.split([' '])[1] ?? null;   // Bearer <token>
 
         if(!token) throw new BadRequestException("Error: no token provided.");
 
@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
             }
             return true;
         } catch(error) {
-            throw new UnauthorizedException("Error: access denied.");
+            throw new UnauthorizedException("Error: access denied due to invalid token.");
         }
     }
 }

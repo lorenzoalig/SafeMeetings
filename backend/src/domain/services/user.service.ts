@@ -4,8 +4,9 @@ import { UserResponseDto } from "../dtos/user/user-response.dto";
 import { CreateUserDto } from "../dtos/user/create-user.dto";
 import { UpdateUserDto } from "../dtos/user/update-user.dto";
 import { UserMapper } from "src/infrastructure/mappers/user.mappers";
-import * as bcrypt from "bcrypt"
 import { UpdateUserLevelDto } from "../dtos/user/update-user-level.dto";
+import * as bcrypt from "bcrypt"
+
 
 @Injectable()
 export class UserService {

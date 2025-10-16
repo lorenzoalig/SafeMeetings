@@ -98,7 +98,7 @@ export class UserController {
             })
         ) dto: UpdateUserLevelDto
     ) {
-        return this.userService.updateUserLevel(id, dto);
+        return this.userService.updateUserLevel(+id, dto);
     }
 
     /**

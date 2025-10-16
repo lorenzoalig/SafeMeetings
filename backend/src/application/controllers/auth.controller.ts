@@ -7,7 +7,7 @@ import { authOutput, AuthService } from "../services/auth.service";
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
-    @Post()
+    @Post("login")
     login(@Body(new ValidationPipe({
             whitelist: true,
             forbidNonWhitelisted: true,
