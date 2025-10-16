@@ -5,6 +5,7 @@ import { CreateUserDto } from "../dtos/user/create-user.dto";
 import { UpdateUserDto } from "../dtos/user/update-user.dto";
 import { UserMapper } from "src/infrastructure/mappers/user.mappers";
 import * as bcrypt from "bcrypt"
+import { UpdateUserLevelDto } from "../dtos/user/update-user-level.dto";
 
 @Injectable()
 export class UserService {
@@ -19,7 +20,7 @@ export class UserService {
 
     /**
      * Shows all users
-     * @returns user response dto array of all active users
+     * @returns UserResponseDto array of all active users
      */
     async showAllUsers(): Promise<UserResponseDto[]> {
         const users = await this.userRepository.findAllUsers();
@@ -31,7 +32,7 @@ export class UserService {
     /**
      * Shows a single user
      * @param id the user's id
-     * @returns the user's response dto
+     * @returns the user's UserResponseDto
      */
     async showUserById(id: number): Promise<UserResponseDto> {
         const user = await this.userRepository.findUserById(id);
@@ -43,7 +44,7 @@ export class UserService {
     /**
      * Shows a single user by email
      * @param email the user's email
-     * @returns the user's response dto
+     * @returns the user's UserResponseDto
      */
     async showUserByEmail(email: string): Promise<UserResponseDto> {
         const user = await this.userRepository.findUserByEmail(email);
@@ -54,8 +55,8 @@ export class UserService {
 
     /**
      * Creates a new user
-     * @param dto create user dto with the data
-     * @returns the new user's response dto
+     * @param dto CreateUserDto with the data
+     * @returns the new user's UserResponseDto
      */
     async createUser(dto: CreateUserDto): Promise<UserResponseDto> {
         const hashed = await bcrypt.hash(dto.password, this.saltRounds);
@@ -71,8 +72,8 @@ export class UserService {
     /**
      * Updates an existing user
      * @param id the user's id
-     * @param dto updater user dto with the new data
-     * @returns the updated user's response dto
+     * @param dto UpdateUserDto with the new data
+     * @returns the updated user's UserResponseDto
      */
     async updateUser(id: number, dto: UpdateUserDto): Promise<UserResponseDto> {
         const user = await this.userRepository.updateUser(id, dto);
@@ -82,9 +83,26 @@ export class UserService {
     }
 
     /**
+     * Updates an existing user's access level
+     * @param id the user's id
+     * @param dto UpdateUserLevelDto with the new level
+     * @returns the updated user's UserResponseDto
+     */
+    async updateUserLevel(id: number, dto: UpdateUserLevelDto): Promise<UserResponseDto> {
+        let user = await this.userRepository.findUserById(id);
+
+        if(!user) throw new NotFoundException("Error: user not found.");
+        if(user.level == dto.level) throw new BadRequestException("Error: user is already this level.");
+        user = await this.userRepository.updateUser(id, dto);
+
+        if(!user) throw new InternalServerErrorException("Error: user level could not be updated");
+        return this.userMapper.mapPrismaToUserResponseDto(user);
+    }
+
+    /**
      * Deletes a user (deactivates)
      * @param id the user's id
-     * @returns the deleted user's response dto
+     * @returns the deleted user's UserResponseDto
      */
     async removeUser(id: number): Promise<UserResponseDto> {
         const user = await this.userRepository.findUserById(id);
