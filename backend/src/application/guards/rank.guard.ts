@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { IsSelfAllowed, Ranks } from "../decorators/rank.decorator";
 
@@ -20,7 +20,7 @@ export class RankGuard implements CanActivate {
         const userRank = request.user.level;
 
         if(!this.matchesRanks(userRank, requiredRanks)) {
-            throw new UnauthorizedException("Error: insufficient access level for this resource.");
+            throw new ForbiddenException("Error: insufficient access level for this resource.");
         }
         return true;
     }
