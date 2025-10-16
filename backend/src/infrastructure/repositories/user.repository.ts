@@ -1,5 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException, NotImplementedException } from "@nestjs/common";
-import { UserResponseDto } from "src/domain/dtos/user/user-response.dto";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { DataBaseService } from "../services/database.service";
 import { UserMapper } from "../mappers/user.mappers";
 import { CreateUserDto } from "src/domain/dtos/user/create-user.dto";
@@ -65,7 +64,7 @@ export class UserRepository {
                 data: prismaInput
             });
         } catch (error) {
-            if(error instanceof Prisma.PrismaClientKnownRequestError) {
+            if(error instanceof Prisma.PrismaClientKnownRequestError) {        // FIXME: Do proper error handling through Exceptions Filter
                 if(error.code == "P2002")
                     throw new InternalServerErrorException(`Error: an user with this ${error.meta?.target} already exists.`);
             }    

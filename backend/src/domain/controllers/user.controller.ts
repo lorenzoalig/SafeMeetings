@@ -6,7 +6,6 @@ import { UserResponseDto } from "../dtos/user/user-response.dto";
 import { IsSelfAllowed, Ranks } from "src/application/decorators/rank.decorator";
 import { RankGuard } from "src/application/guards/rank.guard";
 import { AuthGuard } from "src/application/guards/auth.guard";
-import { Reflector } from "@nestjs/core";
 
 
 @Controller("users")
@@ -56,7 +55,7 @@ export class UserController {
 
     /**
      * Route for updating an existing user
-     * @access                                       //FIXME: to be defined
+     * @access authenticated users with rank 5 or the user himself
      * @param id the user's id
      * @param data update user dto with new data
      * @returns the updates user's response dto

@@ -4,9 +4,14 @@ import { UserResponseDto } from "../dtos/user/user-response.dto";
 import { CreateUserDto } from "../dtos/user/create-user.dto";
 import { UpdateUserDto } from "../dtos/user/update-user.dto";
 import { UserMapper } from "src/infrastructure/mappers/user.mappers";
+import * as bcrypt from "bcrypt"
 
 @Injectable()
 export class UserService {
+
+    // Number of rounds bcrypt will encrypt each password over (2^rounds)
+    saltRounds: number = 12;
+
     constructor(
         private readonly userRepository: UserRepository,
         private readonly userMapper: UserMapper
@@ -53,6 +58,10 @@ export class UserService {
      * @returns the new user's response dto
      */
     async createUser(dto: CreateUserDto): Promise<UserResponseDto> {
+        const hashed = await bcrypt.hash(dto.password, this.saltRounds);
+        
+        if(!hashed) throw new InternalServerErrorException("Error: could not hash password.")
+        dto.password = hashed;
         const user = await this.userRepository.addUser(dto);
 
         if(!user) throw new InternalServerErrorException("Error: user could not be created.");
