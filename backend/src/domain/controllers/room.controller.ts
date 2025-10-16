@@ -1,10 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards, ValidationPipe } from "@nestjs/common";
 import { RoomService } from "../services/room.service";
 import { UpdateRoomDto } from "../dtos/room/update-room.dto";
 import { CreateRoomDto } from "../dtos/room/create-room.dto";
+import { AuthGuard } from "src/application/guards/auth.guard";
+import { Ranks } from "src/application/decorators/rank.decorator";
+import { RankGuard } from "src/application/guards/rank.guard";
 
 
 @Controller("rooms")
+@UseGuards(AuthGuard)
 export class RoomController {
     constructor(private readonly roomService: RoomService) {}
 
@@ -33,6 +37,8 @@ export class RoomController {
      * @returns the new room's response dto
      */
     @Post()
+    @Ranks([5])
+    @UseGuards(RankGuard)
     postRoom(
         @Body(new ValidationPipe({
                 whitelist: true,
@@ -50,6 +56,8 @@ export class RoomController {
      * @returns the updated room's response dto
      */
     @Put(":id")
+    @Ranks([5])
+    @UseGuards(RankGuard)
     putRoom(
         @Param("id") id: string, 
         @Body(new ValidationPipe({
@@ -67,6 +75,8 @@ export class RoomController {
      * @param id the room's UUID
      */
     @Patch()
+    @Ranks([5])
+    @UseGuards(RankGuard)
     lockRoom(@Param("id") id: string) {
         this.roomService.toggleRoomLock(id);
     }
@@ -77,6 +87,8 @@ export class RoomController {
      * @returns the deleted room's response dto
      */
     @Delete(":id")
+    @Ranks([5])
+    @UseGuards(RankGuard)
     deleteRoom(@Param("id") id: string) {
         return this.roomService.removeRoom(id);
     }
