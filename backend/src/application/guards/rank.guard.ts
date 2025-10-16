@@ -12,10 +12,11 @@ export class RankGuard implements CanActivate {
 
         if(!requiredRanks) return true;
         const request = context.switchToHttp().getRequest();
-        const isSelfAllowed = this.reflector.get(IsSelfAllowed, context.getHandler());
         const targetUser = request.params.id;
+        const isSelfAllowed = this.reflector.get(IsSelfAllowed, context.getHandler());
 
-        if(isSelfAllowed && request.user.id == targetUser) return true;
+        // Allows access if it is the user itself and the route is IsSelfAllowed
+        if(isSelfAllowed && request.user.id == targetUser) return true;       
         const userRank = request.user.level;
 
         if(!this.matchesRanks(userRank, requiredRanks)) {
