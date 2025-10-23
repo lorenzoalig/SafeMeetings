@@ -8,7 +8,7 @@ import { RankGuard } from "src/application/guards/rank.guard";
 import { EnterRoomGuard } from "src/application/guards/enter-room.guard";
 
 
-@Controller("room")
+@Controller("places")
 @UseGuards(AuthGuard)
 export class RoomController {
     constructor(private readonly roomService: RoomService) {}

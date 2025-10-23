@@ -3,11 +3,11 @@ import { UserLoginDto } from "src/domain/dtos/user/user-login.dto";
 import { authOutput, AuthService } from "../services/auth.service";
 
 
-@Controller("auth")
+@Controller("login")
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
-    @Post("login")
+    @Post()
     login(@Body(new ValidationPipe({
             whitelist: true,
             forbidNonWhitelisted: true,
