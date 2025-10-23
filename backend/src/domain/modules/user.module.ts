@@ -11,10 +11,9 @@ import { InfrastructureModule } from "src/infrastructure/modules/infrastructure.
 
 @Module({
     imports: [
-        DataBaseModule,
         InfrastructureModule,
-        forwardRef(() => RankModule),
-        forwardRef(() => AuthModule),
+        AuthModule,
+        forwardRef(() => RankModule)
     ],
     controllers: [UserController],
     providers: [UserService],

@@ -4,11 +4,12 @@ import { AuthService } from "../services/auth.service";
 import { AuthGuard } from "../guards/auth.guard";
 import { UserModule } from "src/domain/modules/user.module";
 import { AuthController } from "../controllers/auth.controller";
+import { InfrastructureModule } from "src/infrastructure/modules/infrastructure.module";
 
 
 @Module({
     imports: [
-        forwardRef(() => UserModule),
+        InfrastructureModule,
         JwtModule.register({
             global: true,
             secret: process.env.JWT_SECRET,
