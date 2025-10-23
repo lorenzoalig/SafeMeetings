@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Prisma, User } from "generated/prisma-client";
 import { CreateUserDto } from "src/domain/dtos/user/create-user.dto";
+import { UpdateUserLevelDto } from "src/domain/dtos/user/update-user-level.dto";
 import { UpdateUserDto } from "src/domain/dtos/user/update-user.dto";
 import { UserResponseDto } from "src/domain/dtos/user/user-response.dto";
 
@@ -28,13 +29,16 @@ export class UserMapper {
         return prismaUser;
     }
 
-    mapUpdateUserDtoToPrimsaInput(dto: UpdateUserDto): Prisma.UserUpdateInput {
-        const prismaInput: Prisma.UserUpdateInput = {
-            name: dto.name,
-            email: dto.email,
-            password: dto.password,
-            level: dto.level,
-            profile_img: dto.profile_img
+    mapUpdateUserDtoToPrimsaInput(dto: UpdateUserDto | UpdateUserLevelDto): Prisma.UserUpdateInput {
+        const prismaInput: Prisma.UserUpdateInput = {};
+
+        if("level" in dto) {
+            prismaInput.level = dto.level;
+        } else {
+            if(dto.name) prismaInput.name = dto.name;
+            if(dto.email) prismaInput.email = dto.email;
+            if(dto.password) prismaInput.password = dto.password;
+            if(dto.profile_img) prismaInput.profile_img = dto.profile_img;
         }
         return prismaInput;
     }

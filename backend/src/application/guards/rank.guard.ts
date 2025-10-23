@@ -1,26 +1,34 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { IsSelfAllowed, Ranks } from "../decorators/rank.decorator";
+import { UserService } from "src/domain/services/user.service";
 
 
 @Injectable()
 export class RankGuard implements CanActivate {
-    constructor(private readonly reflector: Reflector) {}
+    constructor(
+        private readonly reflector: Reflector,
+        private readonly userService: UserService
+    ) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const requiredRanks = this.reflector.get(Ranks, context.getHandler());
 
         if(!requiredRanks) return true;
         const request = context.switchToHttp().getRequest();
+        const userId = request.user.userId;
+        
+        // Allows access if it's the user themselves and the route has IsSelfAllowed
         const targetUser = request.params.id;
         const isSelfAllowed = this.reflector.get(IsSelfAllowed, context.getHandler());
-
-        // Allows access if it is the user itself and the route is IsSelfAllowed
-        if(isSelfAllowed && request.user.id == targetUser) return true;       
-        const userRank = request.user.level;
+        if(isSelfAllowed && userId == targetUser) return true;   
+        
+        // Otherwise, checks if the user has the required rank
+        const user = await this.userService.showUserById(userId);
+        const userRank = user.level;
 
         if(!this.matchesRanks(userRank, requiredRanks)) {
-            throw new UnauthorizedException("Error: insufficient access level for this resource.");
+            throw new ForbiddenException("Error: insufficient access level for this resource.");
         }
         return true;
     }

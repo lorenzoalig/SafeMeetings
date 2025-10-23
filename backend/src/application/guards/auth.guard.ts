@@ -8,11 +8,11 @@ export class AuthGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();
-        const authorization = request.header.authorization;
-        const token = authorization?.split([' '])[1] ?? null;
+        const authorization = request.headers.authorization;
+        const token = authorization?.split([' '])[1] ?? null;   // Bearer <token>
 
         if(!token) throw new BadRequestException("Error: no token provided.");
-
+        
         try{
             const payload = await this.jwtService.verifyAsync(token);
             request.user = {
@@ -21,7 +21,12 @@ export class AuthGuard implements CanActivate {
             }
             return true;
         } catch(error) {
-            throw new UnauthorizedException("Error: access denied.");
+            const messages: Record<string, string> = {
+                TokenExpiredError: 'Error: access denied - token has expired.',
+                JsonWebTokenError: 'Error: access denied - token is invalid.',
+            };
+            const message = messages[error.name] ?? 'Error: jwt authentication failed with unknown error.';
+            throw new UnauthorizedException(message);
         }
     }
 }

@@ -4,6 +4,7 @@ import { UserMapper } from "../mappers/user.mappers";
 import { CreateUserDto } from "src/domain/dtos/user/create-user.dto";
 import { UpdateUserDto } from "src/domain/dtos/user/update-user.dto";
 import { Prisma, User } from "generated/prisma-client";
+import { UpdateUserLevelDto } from "src/domain/dtos/user/update-user-level.dto";
 
 
 @Injectable()
@@ -64,7 +65,7 @@ export class UserRepository {
                 data: prismaInput
             });
         } catch (error) {
-            if(error instanceof Prisma.PrismaClientKnownRequestError) {        // FIXME: Do proper error handling through Exceptions Filter
+            if(error instanceof Prisma.PrismaClientKnownRequestError) {        // Todo: Do proper error handling through Exceptions Filter
                 if(error.code == "P2002")
                     throw new InternalServerErrorException(`Error: an user with this ${error.meta?.target} already exists.`);
             }    
@@ -78,7 +79,7 @@ export class UserRepository {
      * @param dto a UserUpdateDto with the alterations
      * @returns a UserResponseDto with the updated user
      */
-    async updateUser(userId:number, dto: UpdateUserDto): Promise<User> {
+    async updateUser(userId:number, dto: UpdateUserDto | UpdateUserLevelDto): Promise<User> {
         const prismaInput = this.userMapper.mapUpdateUserDtoToPrimsaInput(dto);
         return await this.dataBaseService.user.update({
             where: {

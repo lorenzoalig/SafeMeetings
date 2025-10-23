@@ -144,7 +144,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\loren\\OneDrive\\Acadêmico\\PUCRS - Sistemas de Informação\\00 - Grupo de Estudos AGES\\SafeCompany\\backend\\generated\\prisma-client",
+      "value": "X:\\1. Pessoal\\Lorenzo\\OneDrive\\Acadêmico\\PUCRS - Sistemas de Informação\\00 - Grupo de Estudos AGES\\SafeMeetings\\backend\\generated\\prisma-client",
       "fromEnvVar": null
     },
     "config": {
@@ -158,7 +158,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\loren\\OneDrive\\Acadêmico\\PUCRS - Sistemas de Informação\\00 - Grupo de Estudos AGES\\SafeCompany\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "X:\\1. Pessoal\\Lorenzo\\OneDrive\\Acadêmico\\PUCRS - Sistemas de Informação\\00 - Grupo de Estudos AGES\\SafeMeetings\\backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

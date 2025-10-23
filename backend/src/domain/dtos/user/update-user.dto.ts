@@ -23,12 +23,6 @@ export class UpdateUserDto {
     password: string;       // Create separate route for password change through email
 
     @IsOptional()
-    @IsNumber()
-    @Min(1)
-    @Max(5)
-    level: number;
-
-    @IsOptional()
     @IsBase64()
     profile_img: string
 }

@@ -4,6 +4,6 @@ import { UserModule } from 'src/domain/modules/user.module';
 import { AuthModule } from './auth.module';
 
 @Module({
-  imports: [UserModule, RoomModule]
+  imports: [UserModule, RoomModule, AuthModule]
 })
 export class AppModule {}
