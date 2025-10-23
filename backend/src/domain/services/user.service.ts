@@ -77,6 +77,12 @@ export class UserService {
      * @returns the updated user's UserResponseDto
      */
     async updateUser(id: number, dto: UpdateUserDto): Promise<UserResponseDto> {
+        if(dto.password) {      // FIXME: Move password updating to specific service
+            const hashed = await bcrypt.hash(dto.password, this.saltRounds);
+        
+            if(!hashed) throw new InternalServerErrorException("Error: could not hash password.")
+            dto.password = hashed;
+        }
         const user = await this.userRepository.updateUser(id, dto);
         
         if(!user) throw new InternalServerErrorException("Error: user could not be updated.");
