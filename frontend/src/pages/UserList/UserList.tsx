@@ -11,7 +11,6 @@ export interface User {
   id: string;
   email: string;
   name: string;
-  level: number;
   profile_img: string;
 }
 export type UserWithBadge = User & { badge_url: string };

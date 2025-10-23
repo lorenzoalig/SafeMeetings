@@ -29,9 +29,6 @@ const useUserAPI = () => {
       }
 
       const data = await response.json();
-      const token = data.token;
-      localStorage.setItem("token", token || "");
-
       return data;
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,6 +46,7 @@ const useUserAPI = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("token") || ""
         },
         body: JSON.stringify(body),
       });
@@ -99,8 +97,7 @@ const useUserAPI = () => {
     try {
       const response = await fetch(`${BASE_URL}/users`, {
         headers: {
-          "Authorization": "Bearer " + localStorage.getItem("token") || "",
-          "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("token") || ""
         }
       });
 
@@ -140,7 +137,11 @@ const useUserAPI = () => {
   const getUsersPDF = async () => {
     setError(null);
     try {
-      const response = await fetch(`${BASE_URL}/pdf-report`);
+      const response = await fetch(`${BASE_URL}/pdf-report`, {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token") || ""
+        }
+      });
 
       if (!response.ok) {
         throw new Error("Erro ao buscar o relatório");

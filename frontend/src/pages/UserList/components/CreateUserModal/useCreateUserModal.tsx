@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NewUser } from "../../UserList";
 import useGeneralFunctions from "../../../../hooks/useGeneralFunctions";
-import useAWSAPI from "../../../../hooks/useAWSAPI";
+// import useAWSAPI from "../../../../hooks/useAWSAPI";
 import useImage from "../../../../hooks/useImage";
 
 const useCreateUserModal = (
@@ -9,7 +9,7 @@ const useCreateUserModal = (
   onCreateUser: (user: NewUser) => void,
   isOpen: boolean,
 ) => {
-  const { postFileToS3 } = useAWSAPI();
+  // const { postFileToS3 } = useAWSAPI();
   const { isValidEmail } = useGeneralFunctions();
   const { changeImageSize } = useImage();
 
@@ -84,7 +84,7 @@ const useCreateUserModal = (
       email: fields[1].value,
       level: parseInt(fields[2].value),
       password: fields[3].value,
-      profile_img: imageLink || "",
+      profile_img: imageLink!.split(",")[1] || "",
     };
     onCreateUser(newUser);
     setFields(initialState);
@@ -96,11 +96,19 @@ const useCreateUserModal = (
     if (file) {
       const newFile = await changeImageSize(file, 330, 330);
       if (newFile) {
-        postFileToS3(newFile).then((link) => {
-          setImageLink(link || null);
-        });
+        const base64 = await fileToBase64(newFile);
+        setImageLink(base64);
       }
     }
+  };
+
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
   };
 
   return {

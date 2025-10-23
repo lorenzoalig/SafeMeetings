@@ -19,8 +19,9 @@ const usePlaceAPI = () => {
     try {
       const response = await fetch(`${BASE_URL}/places`, {
         headers: {
-          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoibG9yZW56by5nb25jYWx2ZXNAZWR1LnB1Y3JzLmJyIiwiaWF0IjoxNzYxMjE2NTc4LCJleHAiOjE3NjEyMjAxNzh9.VhcFGhUkhCsJz1_vZJ73qe6K-C6nFy3yvakEUOJSs4A",
-        }});
+          "Authorization": "Bearer " + localStorage.getItem("token") || "",
+        }
+      });
 
       if (!response.ok) {
         throw new Error("Erro ao buscar locais");

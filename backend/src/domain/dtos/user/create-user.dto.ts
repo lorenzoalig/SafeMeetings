@@ -13,6 +13,12 @@ export class CreateUserDto {
     email: string;
 
     @IsNotEmpty()
+    @IsNumber()
+    @Min(1)
+    @Max(5)
+    level: number;
+
+    @IsNotEmpty()
     @IsStrongPassword({
         minLength: 8,
         minLowercase: 1,
