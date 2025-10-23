@@ -42,8 +42,8 @@ export class RoomController {
      * @param id the room's UUID
      * @returns the room's response dto
      */
-    @Get(":uuid")
-    getRoom(@Param("uuid") id: string) {
+    @Get(":id")
+    getRoom(@Param("id") id: string) {
         return this.roomService.showSingleRoom(id);
     }
 

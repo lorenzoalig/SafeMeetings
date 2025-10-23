@@ -4,7 +4,6 @@ import { PdfGeneratorService } from "src/infrastructure/services/pdf-generator.s
 import PDFDocument from "pdfkit";
 
 
-
 @Injectable()
 export class PdfReportService {
     constructor(
