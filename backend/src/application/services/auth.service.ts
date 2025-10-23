@@ -10,7 +10,7 @@ type signInData = {
 }
 
 export type authOutput = {
-    accessToken: string,
+    token: string,
     userId: number,
     email: string,
 }
@@ -50,6 +50,6 @@ export class AuthService {
             email: loginData.email
         }
         const token = await this.jwtService.signAsync(payload);
-        return {accessToken: token, userId: loginData.id, email: loginData.email};
+        return {token: token, userId: loginData.id, email: loginData.email};
     }
 }

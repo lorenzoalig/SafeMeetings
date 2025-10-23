@@ -14,7 +14,7 @@ const useUserAPI = () => {
 
   const postLogin = async (body: LoginRequestBody) => {
     setError(null);
-
+    
     try {
       const response = await fetch(`${BASE_URL}/login`, {
         method: "POST",
@@ -23,14 +23,17 @@ const useUserAPI = () => {
         },
         body: JSON.stringify(body),
       });
-      console.log("response", response);
-
+      
       if (!response.ok) {
         throw new Error("Erro ao fazer login");
       }
 
       const data = await response.json();
+      const token = data.token;
+      localStorage.setItem("token", token || "");
+
       return data;
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setError(error.message);
@@ -96,8 +99,10 @@ const useUserAPI = () => {
     try {
       const response = await fetch(`${BASE_URL}/users`, {
         headers: {
-          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoibG9yZW56by5nb25jYWx2ZXNAZWR1LnB1Y3JzLmJyIiwiaWF0IjoxNzYxMjE2NTc4LCJleHAiOjE3NjEyMjAxNzh9.VhcFGhUkhCsJz1_vZJ73qe6K-C6nFy3yvakEUOJSs4A",
-        }});
+          "Authorization": "Bearer " + localStorage.getItem("token") || "",
+          "Content-Type": "application/json",
+        }
+      });
 
       if (!response.ok) {
         throw new Error("Erro ao buscar usuários");
