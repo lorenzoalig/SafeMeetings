@@ -20,7 +20,7 @@ export class BadgeGeneratorService {
         // ==== HEADER ====
         const logoPath = path.join(__dirname, "..", "..", "..", "assets", "techlo-logo.png");
         doc.image(logoPath, 50, 5, { width: 125 });
-        doc.fontSize(14).text("User Report", 262, 70);
+        doc.fontSize(14).text("USER BADGE", 262, 70);
         doc.moveTo(50, 100).lineTo(550, 100).stroke();
 
         // ==== CONTENT ====
@@ -29,6 +29,7 @@ export class BadgeGeneratorService {
         doc.text("Name: " + user.name);
         doc.text("Email: " + user.email);
         doc.text("Access Level: " + user.level);
+        doc.text("Issued on: " + new Date().toDateString());
         
         if(user.profile_img) {
             const profileImgBase64 = user.profile_img;
@@ -47,11 +48,11 @@ export class BadgeGeneratorService {
         });
 
         // QRCode generator
-        const portfolioUrl = "https://github.com/lorenzoalig";
-        const qrDataUrl = await QRCode.toDataURL(portfolioUrl);
+        const userId = user.id;
+        const qrDataUrl = await QRCode.toDataURL(userId.toString());
         const imgBase64 = qrDataUrl.replace(/^data:image\/png;base64,/, "");
         const imgBuffer = Buffer.from(imgBase64, "base64");
-        doc.image(imgBuffer, 360, footerY - 200, { width: 165 });
+        doc.image(imgBuffer, 185, footerY - 350, { width: 230 });
 
         return doc;
     }
