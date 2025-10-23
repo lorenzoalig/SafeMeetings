@@ -6,7 +6,6 @@ import { AuthGuard } from "src/application/guards/auth.guard";
 import { Ranks } from "src/application/decorators/rank.decorator";
 import { RankGuard } from "src/application/guards/rank.guard";
 import { EnterRoomGuard } from "src/application/guards/enter-room.guard";
-import { Request } from "express";
 
 
 @Controller("room")
@@ -43,8 +42,8 @@ export class RoomController {
      * @param id the room's UUID
      * @returns the room's response dto
      */
-    @Get(":id")
-    getRoom(@Param("id") id: string) {
+    @Get(":uuid")
+    getRoom(@Param("uuid") id: string) {
         return this.roomService.showSingleRoom(id);
     }
 

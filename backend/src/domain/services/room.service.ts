@@ -15,6 +15,12 @@ export class RoomService {
         private readonly accessRepository: AccessRepository
     ) {}
 
+    /**
+     * Joins current user to a room
+     * @param userId the user's id
+     * @param roomId the room's id
+     * @returns access entity (FOR NOW - to be a responseDto)
+     */
     async joinRoom(userId: number, roomId: string) {
         const access = await this.accessRepository.registerAccess(userId, roomId);
         return access;

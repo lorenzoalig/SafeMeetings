@@ -40,10 +40,11 @@ model Room {
 
 // Access Log Table
 model Access {
-  userId Int
-  roomId String
-  user   User   @relation(fields: [userId], references: [id])
-  room   Room   @relation(fields: [roomId], references: [id])
+  userId     Int
+  roomId     String
+  accessedAt DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+  room       Room     @relation(fields: [roomId], references: [id])
 
   @@id(fields: [userId, roomId])
 }

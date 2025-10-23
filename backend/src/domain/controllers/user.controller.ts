@@ -87,7 +87,7 @@ export class UserController {
      */
     @Patch(":id/level")
     @Ranks([5])
-    @UseGuards(RankGuard)
+    //@UseGuards(RankGuard)
     patchLevel(
         @Param("id") id: number,
         @Body(

@@ -3390,16 +3390,19 @@ export namespace Prisma {
   export type AccessMinAggregateOutputType = {
     userId: number | null
     roomId: string | null
+    accessedAt: Date | null
   }
 
   export type AccessMaxAggregateOutputType = {
     userId: number | null
     roomId: string | null
+    accessedAt: Date | null
   }
 
   export type AccessCountAggregateOutputType = {
     userId: number
     roomId: number
+    accessedAt: number
     _all: number
   }
 
@@ -3415,16 +3418,19 @@ export namespace Prisma {
   export type AccessMinAggregateInputType = {
     userId?: true
     roomId?: true
+    accessedAt?: true
   }
 
   export type AccessMaxAggregateInputType = {
     userId?: true
     roomId?: true
+    accessedAt?: true
   }
 
   export type AccessCountAggregateInputType = {
     userId?: true
     roomId?: true
+    accessedAt?: true
     _all?: true
   }
 
@@ -3517,6 +3523,7 @@ export namespace Prisma {
   export type AccessGroupByOutputType = {
     userId: number
     roomId: string
+    accessedAt: Date
     _count: AccessCountAggregateOutputType | null
     _avg: AccessAvgAggregateOutputType | null
     _sum: AccessSumAggregateOutputType | null
@@ -3541,6 +3548,7 @@ export namespace Prisma {
   export type AccessSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     roomId?: boolean
+    accessedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     room?: boolean | RoomDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["access"]>
@@ -3548,6 +3556,7 @@ export namespace Prisma {
   export type AccessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     roomId?: boolean
+    accessedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     room?: boolean | RoomDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["access"]>
@@ -3555,6 +3564,7 @@ export namespace Prisma {
   export type AccessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     roomId?: boolean
+    accessedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     room?: boolean | RoomDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["access"]>
@@ -3562,9 +3572,10 @@ export namespace Prisma {
   export type AccessSelectScalar = {
     userId?: boolean
     roomId?: boolean
+    accessedAt?: boolean
   }
 
-  export type AccessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "roomId", ExtArgs["result"]["access"]>
+  export type AccessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "roomId" | "accessedAt", ExtArgs["result"]["access"]>
   export type AccessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     room?: boolean | RoomDefaultArgs<ExtArgs>
@@ -3587,6 +3598,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       userId: number
       roomId: string
+      accessedAt: Date
     }, ExtArgs["result"]["access"]>
     composites: {}
   }
@@ -4014,6 +4026,7 @@ export namespace Prisma {
   interface AccessFieldRefs {
     readonly userId: FieldRef<"Access", 'Int'>
     readonly roomId: FieldRef<"Access", 'String'>
+    readonly accessedAt: FieldRef<"Access", 'DateTime'>
   }
     
 
@@ -4470,7 +4483,8 @@ export namespace Prisma {
 
   export const AccessScalarFieldEnum: {
     userId: 'userId',
-    roomId: 'roomId'
+    roomId: 'roomId',
+    accessedAt: 'accessedAt'
   };
 
   export type AccessScalarFieldEnum = (typeof AccessScalarFieldEnum)[keyof typeof AccessScalarFieldEnum]
@@ -4711,6 +4725,7 @@ export namespace Prisma {
     NOT?: AccessWhereInput | AccessWhereInput[]
     userId?: IntFilter<"Access"> | number
     roomId?: StringFilter<"Access"> | string
+    accessedAt?: DateTimeFilter<"Access"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     room?: XOR<RoomScalarRelationFilter, RoomWhereInput>
   }
@@ -4718,6 +4733,7 @@ export namespace Prisma {
   export type AccessOrderByWithRelationInput = {
     userId?: SortOrder
     roomId?: SortOrder
+    accessedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     room?: RoomOrderByWithRelationInput
   }
@@ -4729,6 +4745,7 @@ export namespace Prisma {
     NOT?: AccessWhereInput | AccessWhereInput[]
     userId?: IntFilter<"Access"> | number
     roomId?: StringFilter<"Access"> | string
+    accessedAt?: DateTimeFilter<"Access"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     room?: XOR<RoomScalarRelationFilter, RoomWhereInput>
   }, "userId_roomId">
@@ -4736,6 +4753,7 @@ export namespace Prisma {
   export type AccessOrderByWithAggregationInput = {
     userId?: SortOrder
     roomId?: SortOrder
+    accessedAt?: SortOrder
     _count?: AccessCountOrderByAggregateInput
     _avg?: AccessAvgOrderByAggregateInput
     _max?: AccessMaxOrderByAggregateInput
@@ -4749,6 +4767,7 @@ export namespace Prisma {
     NOT?: AccessScalarWhereWithAggregatesInput | AccessScalarWhereWithAggregatesInput[]
     userId?: IntWithAggregatesFilter<"Access"> | number
     roomId?: StringWithAggregatesFilter<"Access"> | string
+    accessedAt?: DateTimeWithAggregatesFilter<"Access"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -4897,6 +4916,7 @@ export namespace Prisma {
   }
 
   export type AccessCreateInput = {
+    accessedAt?: Date | string
     user: UserCreateNestedOneWithoutAccessInput
     room: RoomCreateNestedOneWithoutAccessInput
   }
@@ -4904,9 +4924,11 @@ export namespace Prisma {
   export type AccessUncheckedCreateInput = {
     userId: number
     roomId: string
+    accessedAt?: Date | string
   }
 
   export type AccessUpdateInput = {
+    accessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAccessNestedInput
     room?: RoomUpdateOneRequiredWithoutAccessNestedInput
   }
@@ -4914,20 +4936,23 @@ export namespace Prisma {
   export type AccessUncheckedUpdateInput = {
     userId?: IntFieldUpdateOperationsInput | number
     roomId?: StringFieldUpdateOperationsInput | string
+    accessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccessCreateManyInput = {
     userId: number
     roomId: string
+    accessedAt?: Date | string
   }
 
   export type AccessUpdateManyMutationInput = {
-
+    accessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccessUncheckedUpdateManyInput = {
     userId?: IntFieldUpdateOperationsInput | number
     roomId?: StringFieldUpdateOperationsInput | string
+    accessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -5197,6 +5222,7 @@ export namespace Prisma {
   export type AccessCountOrderByAggregateInput = {
     userId?: SortOrder
     roomId?: SortOrder
+    accessedAt?: SortOrder
   }
 
   export type AccessAvgOrderByAggregateInput = {
@@ -5206,11 +5232,13 @@ export namespace Prisma {
   export type AccessMaxOrderByAggregateInput = {
     userId?: SortOrder
     roomId?: SortOrder
+    accessedAt?: SortOrder
   }
 
   export type AccessMinOrderByAggregateInput = {
     userId?: SortOrder
     roomId?: SortOrder
+    accessedAt?: SortOrder
   }
 
   export type AccessSumOrderByAggregateInput = {
@@ -5532,11 +5560,13 @@ export namespace Prisma {
   }
 
   export type AccessCreateWithoutUserInput = {
+    accessedAt?: Date | string
     room: RoomCreateNestedOneWithoutAccessInput
   }
 
   export type AccessUncheckedCreateWithoutUserInput = {
     roomId: string
+    accessedAt?: Date | string
   }
 
   export type AccessCreateOrConnectWithoutUserInput = {
@@ -5571,14 +5601,17 @@ export namespace Prisma {
     NOT?: AccessScalarWhereInput | AccessScalarWhereInput[]
     userId?: IntFilter<"Access"> | number
     roomId?: StringFilter<"Access"> | string
+    accessedAt?: DateTimeFilter<"Access"> | Date | string
   }
 
   export type AccessCreateWithoutRoomInput = {
+    accessedAt?: Date | string
     user: UserCreateNestedOneWithoutAccessInput
   }
 
   export type AccessUncheckedCreateWithoutRoomInput = {
     userId: number
+    accessedAt?: Date | string
   }
 
   export type AccessCreateOrConnectWithoutRoomInput = {
@@ -5719,34 +5752,42 @@ export namespace Prisma {
 
   export type AccessCreateManyUserInput = {
     roomId: string
+    accessedAt?: Date | string
   }
 
   export type AccessUpdateWithoutUserInput = {
+    accessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     room?: RoomUpdateOneRequiredWithoutAccessNestedInput
   }
 
   export type AccessUncheckedUpdateWithoutUserInput = {
     roomId?: StringFieldUpdateOperationsInput | string
+    accessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccessUncheckedUpdateManyWithoutUserInput = {
     roomId?: StringFieldUpdateOperationsInput | string
+    accessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccessCreateManyRoomInput = {
     userId: number
+    accessedAt?: Date | string
   }
 
   export type AccessUpdateWithoutRoomInput = {
+    accessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAccessNestedInput
   }
 
   export type AccessUncheckedUpdateWithoutRoomInput = {
     userId?: IntFieldUpdateOperationsInput | number
+    accessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccessUncheckedUpdateManyWithoutRoomInput = {
     userId?: IntFieldUpdateOperationsInput | number
+    accessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

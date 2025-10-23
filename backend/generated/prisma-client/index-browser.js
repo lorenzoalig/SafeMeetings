@@ -142,7 +142,8 @@ exports.Prisma.RoomScalarFieldEnum = {
 
 exports.Prisma.AccessScalarFieldEnum = {
   userId: 'userId',
-  roomId: 'roomId'
+  roomId: 'roomId',
+  accessedAt: 'accessedAt'
 };
 
 exports.Prisma.SortOrder = {
