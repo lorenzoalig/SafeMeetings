@@ -140,6 +140,12 @@ exports.Prisma.RoomScalarFieldEnum = {
   deletedAt: 'deletedAt'
 };
 
+exports.Prisma.AccessScalarFieldEnum = {
+  userId: 'userId',
+  roomId: 'roomId',
+  accessedAt: 'accessedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -158,7 +164,8 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Room: 'Room'
+  Room: 'Room',
+  Access: 'Access'
 };
 
 /**

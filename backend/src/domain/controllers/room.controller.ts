@@ -1,16 +1,32 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UseGuards, ValidationPipe } from "@nestjs/common";
 import { RoomService } from "../services/room.service";
 import { UpdateRoomDto } from "../dtos/room/update-room.dto";
 import { CreateRoomDto } from "../dtos/room/create-room.dto";
 import { AuthGuard } from "src/application/guards/auth.guard";
 import { Ranks } from "src/application/decorators/rank.decorator";
 import { RankGuard } from "src/application/guards/rank.guard";
+import { EnterRoomGuard } from "src/application/guards/enter-room.guard";
 
 
-@Controller("rooms")
+@Controller("room")
 @UseGuards(AuthGuard)
 export class RoomController {
     constructor(private readonly roomService: RoomService) {}
+
+    /**
+     * Route for entering a room
+     * @access authenticated user with sufficient access level
+     * @param id the room's UUID
+     */
+    @Post("enter/:id")
+    @UseGuards(AuthGuard, EnterRoomGuard)
+    enterRoom(
+        @Param("id") roomId: string,
+        @Req() request
+    ) {
+        const userId = request.user.userId;
+        this.roomService.joinRoom(userId, roomId);
+    }
 
     /**
      * Route for getting all rooms
@@ -26,8 +42,8 @@ export class RoomController {
      * @param id the room's UUID
      * @returns the room's response dto
      */
-    @Get(":id")
-    getRoom(@Param("id") id: string) {
+    @Get(":uuid")
+    getRoom(@Param("uuid") id: string) {
         return this.roomService.showSingleRoom(id);
     }
 

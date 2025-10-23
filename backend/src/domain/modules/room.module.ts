@@ -4,11 +4,12 @@ import { RoomService } from "../services/room.service";
 import { DataBaseModule } from "src/infrastructure/modules/database.module";
 import { UserModule } from "./user.module";
 import { InfrastructureModule } from "src/infrastructure/modules/infrastructure.module";
+import { EnterRoomGuard } from "src/application/guards/enter-room.guard";
 
 
 @Module({
-    imports: [DataBaseModule, UserModule, InfrastructureModule],
+    imports: [UserModule, InfrastructureModule],
     controllers: [RoomController],
-    providers: [RoomService]
+    providers: [RoomService, EnterRoomGuard]
 })
 export class RoomModule {}
