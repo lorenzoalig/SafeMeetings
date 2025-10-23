@@ -18,7 +18,7 @@ export class PdfGeneratorService {
         // Disclaimer: PDF template generated with AI - not IP of the author
 
         // ==== HEADER ====
-        const logoPath = path.join(process.cwd(), "assets", "techlo-logo.png");
+        const logoPath = path.join(__dirname, "..", "..", "..", "assets", "techlo-logo.png");
         doc.image(logoPath, 50, 5, { width: 125 });
         doc.fontSize(14).text("User Report", 262, 70);
         doc.moveTo(50, 100).lineTo(550, 100).stroke();
@@ -29,10 +29,12 @@ export class PdfGeneratorService {
         doc.text("Name: " + user.name);
         doc.text("Email: " + user.email);
         doc.text("Access Level: " + user.level);
-
-        const profileImgBase64 = user.profile_img;
-        const profileImgBuffer = Buffer.from(profileImgBase64, "base64");
-        doc.image(profileImgBuffer, 400, 150, { width: 150, height: 150, fit: [150, 150] });
+        
+        if(user.profile_img) {
+            const profileImgBase64 = user.profile_img;
+            const profileImgBuffer = Buffer.from(profileImgBase64, "base64");
+            doc.image(profileImgBuffer, 400, 150, { width: 150, height: 150, fit: [150, 150] });
+        }
         
         // ==== FOOTER ====
         const footerY = doc.page.height - 80;
