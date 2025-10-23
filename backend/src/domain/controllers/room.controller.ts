@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UseGuards, ValidationPipe } from "@nestjs/common";
 import { RoomService } from "../services/room.service";
 import { UpdateRoomDto } from "../dtos/room/update-room.dto";
 import { CreateRoomDto } from "../dtos/room/create-room.dto";
@@ -6,6 +6,7 @@ import { AuthGuard } from "src/application/guards/auth.guard";
 import { Ranks } from "src/application/decorators/rank.decorator";
 import { RankGuard } from "src/application/guards/rank.guard";
 import { EnterRoomGuard } from "src/application/guards/enter-room.guard";
+import { Request } from "express";
 
 
 @Controller("room")
@@ -20,8 +21,12 @@ export class RoomController {
      */
     @Post("enter/:id")
     @UseGuards(AuthGuard, EnterRoomGuard)
-    enterRoom() {
-        this.roomService.joinRoom();
+    enterRoom(
+        @Param("id") roomId: string,
+        @Req() request
+    ) {
+        const userId = request.user.userId;
+        this.roomService.joinRoom(userId, roomId);
     }
 
     /**

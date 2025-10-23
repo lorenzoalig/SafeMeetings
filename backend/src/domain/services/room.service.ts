@@ -3,13 +3,22 @@ import { RoomRepository } from "src/infrastructure/repositories/room.repository"
 import { RoomResponseDto } from "../dtos/room/room-response.dto";
 import { CreateRoomDto } from "../dtos/room/create-room.dto";
 import { UpdateRoomDto } from "../dtos/room/update-room.dto";
+import { AccessRepository } from "src/infrastructure/repositories/access.repository";
 
 
 // FIXME: Move all business logic from the repository to this service
 
 @Injectable()
 export class RoomService {
-    constructor(private readonly roomRepository: RoomRepository) {}
+    constructor(
+        private readonly roomRepository: RoomRepository,
+        private readonly accessRepository: AccessRepository
+    ) {}
+
+    async joinRoom(userId: number, roomId: string) {
+        const access = await this.accessRepository.registerAccess(userId, roomId);
+        return access;
+    }
 
     /**
      * Shows all rooms
