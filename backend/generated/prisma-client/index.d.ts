@@ -23,6 +23,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type Room = $Result.DefaultSelection<Prisma.$RoomPayload>
+/**
+ * Model Access
+ * 
+ */
+export type Access = $Result.DefaultSelection<Prisma.$AccessPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -161,6 +166,16 @@ export class PrismaClient<
     * ```
     */
   get room(): Prisma.RoomDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.access`: Exposes CRUD operations for the **Access** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Accesses
+    * const accesses = await prisma.access.findMany()
+    * ```
+    */
+  get access(): Prisma.AccessDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -602,7 +617,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Room: 'Room'
+    Room: 'Room',
+    Access: 'Access'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -621,7 +637,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "room"
+      modelProps: "user" | "room" | "access"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -773,6 +789,80 @@ export namespace Prisma {
           }
         }
       }
+      Access: {
+        payload: Prisma.$AccessPayload<ExtArgs>
+        fields: Prisma.AccessFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AccessFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccessPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AccessFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccessPayload>
+          }
+          findFirst: {
+            args: Prisma.AccessFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccessPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AccessFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccessPayload>
+          }
+          findMany: {
+            args: Prisma.AccessFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccessPayload>[]
+          }
+          create: {
+            args: Prisma.AccessCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccessPayload>
+          }
+          createMany: {
+            args: Prisma.AccessCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AccessCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccessPayload>[]
+          }
+          delete: {
+            args: Prisma.AccessDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccessPayload>
+          }
+          update: {
+            args: Prisma.AccessUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccessPayload>
+          }
+          deleteMany: {
+            args: Prisma.AccessDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AccessUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AccessUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccessPayload>[]
+          }
+          upsert: {
+            args: Prisma.AccessUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccessPayload>
+          }
+          aggregate: {
+            args: Prisma.AccessAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAccess>
+          }
+          groupBy: {
+            args: Prisma.AccessGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AccessGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AccessCountArgs<ExtArgs>
+            result: $Utils.Optional<AccessCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -871,6 +961,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     room?: RoomOmit
+    access?: AccessOmit
   }
 
   /* Types for Logging */
@@ -945,6 +1036,67 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    access: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    access?: boolean | UserCountOutputTypeCountAccessArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAccessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccessWhereInput
+  }
+
+
+  /**
+   * Count Type RoomCountOutputType
+   */
+
+  export type RoomCountOutputType = {
+    access: number
+  }
+
+  export type RoomCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    access?: boolean | RoomCountOutputTypeCountAccessArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RoomCountOutputType without action
+   */
+  export type RoomCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoomCountOutputType
+     */
+    select?: RoomCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RoomCountOutputType without action
+   */
+  export type RoomCountOutputTypeCountAccessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccessWhereInput
+  }
 
 
   /**
@@ -1185,6 +1337,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    access?: boolean | User$accessArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1224,10 +1378,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "level" | "profile_img" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    access?: boolean | User$accessArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      access: Prisma.$AccessPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
@@ -1632,6 +1794,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    access<T extends User$accessArgs<ExtArgs> = {}>(args?: Subset<T, User$accessArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1687,6 +1850,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1705,6 +1872,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1722,6 +1893,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1771,6 +1946,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1819,6 +1998,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1861,6 +2044,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -1909,6 +2096,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1976,6 +2167,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -2002,6 +2197,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -2022,6 +2221,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.access
+   */
+  export type User$accessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
+    where?: AccessWhereInput
+    orderBy?: AccessOrderByWithRelationInput | AccessOrderByWithRelationInput[]
+    cursor?: AccessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AccessScalarFieldEnum | AccessScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2033,6 +2256,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -2234,6 +2461,8 @@ export namespace Prisma {
     accessLevel?: boolean
     is_blocked?: boolean
     deletedAt?: boolean
+    access?: boolean | Room$accessArgs<ExtArgs>
+    _count?: boolean | RoomCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["room"]>
 
   export type RoomSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2261,10 +2490,18 @@ export namespace Prisma {
   }
 
   export type RoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description" | "accessLevel" | "is_blocked" | "deletedAt", ExtArgs["result"]["room"]>
+  export type RoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    access?: boolean | Room$accessArgs<ExtArgs>
+    _count?: boolean | RoomCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RoomIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type RoomIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $RoomPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Room"
-    objects: {}
+    objects: {
+      access: Prisma.$AccessPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       description: string | null
@@ -2665,6 +2902,7 @@ export namespace Prisma {
    */
   export interface Prisma__RoomClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    access<T extends Room$accessArgs<ExtArgs> = {}>(args?: Subset<T, Room$accessArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2716,6 +2954,10 @@ export namespace Prisma {
      */
     omit?: RoomOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
+    /**
      * Filter, which Room to fetch.
      */
     where: RoomWhereUniqueInput
@@ -2734,6 +2976,10 @@ export namespace Prisma {
      */
     omit?: RoomOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
+    /**
      * Filter, which Room to fetch.
      */
     where: RoomWhereUniqueInput
@@ -2751,6 +2997,10 @@ export namespace Prisma {
      * Omit specific fields from the Room
      */
     omit?: RoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
     /**
      * Filter, which Room to fetch.
      */
@@ -2800,6 +3050,10 @@ export namespace Prisma {
      */
     omit?: RoomOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
+    /**
      * Filter, which Room to fetch.
      */
     where?: RoomWhereInput
@@ -2848,6 +3102,10 @@ export namespace Prisma {
      */
     omit?: RoomOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
+    /**
      * Filter, which Rooms to fetch.
      */
     where?: RoomWhereInput
@@ -2890,6 +3148,10 @@ export namespace Prisma {
      * Omit specific fields from the Room
      */
     omit?: RoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
     /**
      * The data needed to create a Room.
      */
@@ -2938,6 +3200,10 @@ export namespace Prisma {
      * Omit specific fields from the Room
      */
     omit?: RoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
     /**
      * The data needed to update a Room.
      */
@@ -3005,6 +3271,10 @@ export namespace Prisma {
      */
     omit?: RoomOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
+    /**
      * The filter to search for the Room to update in case it exists.
      */
     where: RoomWhereUniqueInput
@@ -3031,6 +3301,10 @@ export namespace Prisma {
      */
     omit?: RoomOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
+    /**
      * Filter which Room to delete.
      */
     where: RoomWhereUniqueInput
@@ -3051,6 +3325,30 @@ export namespace Prisma {
   }
 
   /**
+   * Room.access
+   */
+  export type Room$accessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
+    where?: AccessWhereInput
+    orderBy?: AccessOrderByWithRelationInput | AccessOrderByWithRelationInput[]
+    cursor?: AccessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AccessScalarFieldEnum | AccessScalarFieldEnum[]
+  }
+
+  /**
    * Room without action
    */
   export type RoomDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3062,6 +3360,1071 @@ export namespace Prisma {
      * Omit specific fields from the Room
      */
     omit?: RoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Access
+   */
+
+  export type AggregateAccess = {
+    _count: AccessCountAggregateOutputType | null
+    _avg: AccessAvgAggregateOutputType | null
+    _sum: AccessSumAggregateOutputType | null
+    _min: AccessMinAggregateOutputType | null
+    _max: AccessMaxAggregateOutputType | null
+  }
+
+  export type AccessAvgAggregateOutputType = {
+    userId: number | null
+  }
+
+  export type AccessSumAggregateOutputType = {
+    userId: number | null
+  }
+
+  export type AccessMinAggregateOutputType = {
+    userId: number | null
+    roomId: string | null
+  }
+
+  export type AccessMaxAggregateOutputType = {
+    userId: number | null
+    roomId: string | null
+  }
+
+  export type AccessCountAggregateOutputType = {
+    userId: number
+    roomId: number
+    _all: number
+  }
+
+
+  export type AccessAvgAggregateInputType = {
+    userId?: true
+  }
+
+  export type AccessSumAggregateInputType = {
+    userId?: true
+  }
+
+  export type AccessMinAggregateInputType = {
+    userId?: true
+    roomId?: true
+  }
+
+  export type AccessMaxAggregateInputType = {
+    userId?: true
+    roomId?: true
+  }
+
+  export type AccessCountAggregateInputType = {
+    userId?: true
+    roomId?: true
+    _all?: true
+  }
+
+  export type AccessAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Access to aggregate.
+     */
+    where?: AccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Accesses to fetch.
+     */
+    orderBy?: AccessOrderByWithRelationInput | AccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Accesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Accesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Accesses
+    **/
+    _count?: true | AccessCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AccessAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AccessSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AccessMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AccessMaxAggregateInputType
+  }
+
+  export type GetAccessAggregateType<T extends AccessAggregateArgs> = {
+        [P in keyof T & keyof AggregateAccess]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAccess[P]>
+      : GetScalarType<T[P], AggregateAccess[P]>
+  }
+
+
+
+
+  export type AccessGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccessWhereInput
+    orderBy?: AccessOrderByWithAggregationInput | AccessOrderByWithAggregationInput[]
+    by: AccessScalarFieldEnum[] | AccessScalarFieldEnum
+    having?: AccessScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AccessCountAggregateInputType | true
+    _avg?: AccessAvgAggregateInputType
+    _sum?: AccessSumAggregateInputType
+    _min?: AccessMinAggregateInputType
+    _max?: AccessMaxAggregateInputType
+  }
+
+  export type AccessGroupByOutputType = {
+    userId: number
+    roomId: string
+    _count: AccessCountAggregateOutputType | null
+    _avg: AccessAvgAggregateOutputType | null
+    _sum: AccessSumAggregateOutputType | null
+    _min: AccessMinAggregateOutputType | null
+    _max: AccessMaxAggregateOutputType | null
+  }
+
+  type GetAccessGroupByPayload<T extends AccessGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AccessGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AccessGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AccessGroupByOutputType[P]>
+            : GetScalarType<T[P], AccessGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AccessSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    roomId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    room?: boolean | RoomDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["access"]>
+
+  export type AccessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    roomId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    room?: boolean | RoomDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["access"]>
+
+  export type AccessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    roomId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    room?: boolean | RoomDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["access"]>
+
+  export type AccessSelectScalar = {
+    userId?: boolean
+    roomId?: boolean
+  }
+
+  export type AccessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "roomId", ExtArgs["result"]["access"]>
+  export type AccessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    room?: boolean | RoomDefaultArgs<ExtArgs>
+  }
+  export type AccessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    room?: boolean | RoomDefaultArgs<ExtArgs>
+  }
+  export type AccessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    room?: boolean | RoomDefaultArgs<ExtArgs>
+  }
+
+  export type $AccessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Access"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      room: Prisma.$RoomPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: number
+      roomId: string
+    }, ExtArgs["result"]["access"]>
+    composites: {}
+  }
+
+  type AccessGetPayload<S extends boolean | null | undefined | AccessDefaultArgs> = $Result.GetResult<Prisma.$AccessPayload, S>
+
+  type AccessCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AccessFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AccessCountAggregateInputType | true
+    }
+
+  export interface AccessDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Access'], meta: { name: 'Access' } }
+    /**
+     * Find zero or one Access that matches the filter.
+     * @param {AccessFindUniqueArgs} args - Arguments to find a Access
+     * @example
+     * // Get one Access
+     * const access = await prisma.access.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AccessFindUniqueArgs>(args: SelectSubset<T, AccessFindUniqueArgs<ExtArgs>>): Prisma__AccessClient<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Access that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AccessFindUniqueOrThrowArgs} args - Arguments to find a Access
+     * @example
+     * // Get one Access
+     * const access = await prisma.access.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AccessFindUniqueOrThrowArgs>(args: SelectSubset<T, AccessFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AccessClient<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Access that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccessFindFirstArgs} args - Arguments to find a Access
+     * @example
+     * // Get one Access
+     * const access = await prisma.access.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AccessFindFirstArgs>(args?: SelectSubset<T, AccessFindFirstArgs<ExtArgs>>): Prisma__AccessClient<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Access that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccessFindFirstOrThrowArgs} args - Arguments to find a Access
+     * @example
+     * // Get one Access
+     * const access = await prisma.access.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AccessFindFirstOrThrowArgs>(args?: SelectSubset<T, AccessFindFirstOrThrowArgs<ExtArgs>>): Prisma__AccessClient<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Accesses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccessFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Accesses
+     * const accesses = await prisma.access.findMany()
+     * 
+     * // Get first 10 Accesses
+     * const accesses = await prisma.access.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const accessWithUserIdOnly = await prisma.access.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends AccessFindManyArgs>(args?: SelectSubset<T, AccessFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Access.
+     * @param {AccessCreateArgs} args - Arguments to create a Access.
+     * @example
+     * // Create one Access
+     * const Access = await prisma.access.create({
+     *   data: {
+     *     // ... data to create a Access
+     *   }
+     * })
+     * 
+     */
+    create<T extends AccessCreateArgs>(args: SelectSubset<T, AccessCreateArgs<ExtArgs>>): Prisma__AccessClient<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Accesses.
+     * @param {AccessCreateManyArgs} args - Arguments to create many Accesses.
+     * @example
+     * // Create many Accesses
+     * const access = await prisma.access.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AccessCreateManyArgs>(args?: SelectSubset<T, AccessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Accesses and returns the data saved in the database.
+     * @param {AccessCreateManyAndReturnArgs} args - Arguments to create many Accesses.
+     * @example
+     * // Create many Accesses
+     * const access = await prisma.access.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Accesses and only return the `userId`
+     * const accessWithUserIdOnly = await prisma.access.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AccessCreateManyAndReturnArgs>(args?: SelectSubset<T, AccessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Access.
+     * @param {AccessDeleteArgs} args - Arguments to delete one Access.
+     * @example
+     * // Delete one Access
+     * const Access = await prisma.access.delete({
+     *   where: {
+     *     // ... filter to delete one Access
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AccessDeleteArgs>(args: SelectSubset<T, AccessDeleteArgs<ExtArgs>>): Prisma__AccessClient<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Access.
+     * @param {AccessUpdateArgs} args - Arguments to update one Access.
+     * @example
+     * // Update one Access
+     * const access = await prisma.access.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AccessUpdateArgs>(args: SelectSubset<T, AccessUpdateArgs<ExtArgs>>): Prisma__AccessClient<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Accesses.
+     * @param {AccessDeleteManyArgs} args - Arguments to filter Accesses to delete.
+     * @example
+     * // Delete a few Accesses
+     * const { count } = await prisma.access.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AccessDeleteManyArgs>(args?: SelectSubset<T, AccessDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Accesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccessUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Accesses
+     * const access = await prisma.access.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AccessUpdateManyArgs>(args: SelectSubset<T, AccessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Accesses and returns the data updated in the database.
+     * @param {AccessUpdateManyAndReturnArgs} args - Arguments to update many Accesses.
+     * @example
+     * // Update many Accesses
+     * const access = await prisma.access.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Accesses and only return the `userId`
+     * const accessWithUserIdOnly = await prisma.access.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AccessUpdateManyAndReturnArgs>(args: SelectSubset<T, AccessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Access.
+     * @param {AccessUpsertArgs} args - Arguments to update or create a Access.
+     * @example
+     * // Update or create a Access
+     * const access = await prisma.access.upsert({
+     *   create: {
+     *     // ... data to create a Access
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Access we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AccessUpsertArgs>(args: SelectSubset<T, AccessUpsertArgs<ExtArgs>>): Prisma__AccessClient<$Result.GetResult<Prisma.$AccessPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Accesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccessCountArgs} args - Arguments to filter Accesses to count.
+     * @example
+     * // Count the number of Accesses
+     * const count = await prisma.access.count({
+     *   where: {
+     *     // ... the filter for the Accesses we want to count
+     *   }
+     * })
+    **/
+    count<T extends AccessCountArgs>(
+      args?: Subset<T, AccessCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AccessCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Access.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AccessAggregateArgs>(args: Subset<T, AccessAggregateArgs>): Prisma.PrismaPromise<GetAccessAggregateType<T>>
+
+    /**
+     * Group by Access.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccessGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AccessGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AccessGroupByArgs['orderBy'] }
+        : { orderBy?: AccessGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AccessGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAccessGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Access model
+   */
+  readonly fields: AccessFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Access.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AccessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    room<T extends RoomDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoomDefaultArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Access model
+   */
+  interface AccessFieldRefs {
+    readonly userId: FieldRef<"Access", 'Int'>
+    readonly roomId: FieldRef<"Access", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Access findUnique
+   */
+  export type AccessFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
+    /**
+     * Filter, which Access to fetch.
+     */
+    where: AccessWhereUniqueInput
+  }
+
+  /**
+   * Access findUniqueOrThrow
+   */
+  export type AccessFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
+    /**
+     * Filter, which Access to fetch.
+     */
+    where: AccessWhereUniqueInput
+  }
+
+  /**
+   * Access findFirst
+   */
+  export type AccessFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
+    /**
+     * Filter, which Access to fetch.
+     */
+    where?: AccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Accesses to fetch.
+     */
+    orderBy?: AccessOrderByWithRelationInput | AccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Accesses.
+     */
+    cursor?: AccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Accesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Accesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Accesses.
+     */
+    distinct?: AccessScalarFieldEnum | AccessScalarFieldEnum[]
+  }
+
+  /**
+   * Access findFirstOrThrow
+   */
+  export type AccessFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
+    /**
+     * Filter, which Access to fetch.
+     */
+    where?: AccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Accesses to fetch.
+     */
+    orderBy?: AccessOrderByWithRelationInput | AccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Accesses.
+     */
+    cursor?: AccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Accesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Accesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Accesses.
+     */
+    distinct?: AccessScalarFieldEnum | AccessScalarFieldEnum[]
+  }
+
+  /**
+   * Access findMany
+   */
+  export type AccessFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
+    /**
+     * Filter, which Accesses to fetch.
+     */
+    where?: AccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Accesses to fetch.
+     */
+    orderBy?: AccessOrderByWithRelationInput | AccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Accesses.
+     */
+    cursor?: AccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Accesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Accesses.
+     */
+    skip?: number
+    distinct?: AccessScalarFieldEnum | AccessScalarFieldEnum[]
+  }
+
+  /**
+   * Access create
+   */
+  export type AccessCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Access.
+     */
+    data: XOR<AccessCreateInput, AccessUncheckedCreateInput>
+  }
+
+  /**
+   * Access createMany
+   */
+  export type AccessCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Accesses.
+     */
+    data: AccessCreateManyInput | AccessCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Access createManyAndReturn
+   */
+  export type AccessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * The data used to create many Accesses.
+     */
+    data: AccessCreateManyInput | AccessCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Access update
+   */
+  export type AccessUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Access.
+     */
+    data: XOR<AccessUpdateInput, AccessUncheckedUpdateInput>
+    /**
+     * Choose, which Access to update.
+     */
+    where: AccessWhereUniqueInput
+  }
+
+  /**
+   * Access updateMany
+   */
+  export type AccessUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Accesses.
+     */
+    data: XOR<AccessUpdateManyMutationInput, AccessUncheckedUpdateManyInput>
+    /**
+     * Filter which Accesses to update
+     */
+    where?: AccessWhereInput
+    /**
+     * Limit how many Accesses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Access updateManyAndReturn
+   */
+  export type AccessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * The data used to update Accesses.
+     */
+    data: XOR<AccessUpdateManyMutationInput, AccessUncheckedUpdateManyInput>
+    /**
+     * Filter which Accesses to update
+     */
+    where?: AccessWhereInput
+    /**
+     * Limit how many Accesses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Access upsert
+   */
+  export type AccessUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Access to update in case it exists.
+     */
+    where: AccessWhereUniqueInput
+    /**
+     * In case the Access found by the `where` argument doesn't exist, create a new Access with this data.
+     */
+    create: XOR<AccessCreateInput, AccessUncheckedCreateInput>
+    /**
+     * In case the Access was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AccessUpdateInput, AccessUncheckedUpdateInput>
+  }
+
+  /**
+   * Access delete
+   */
+  export type AccessDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
+    /**
+     * Filter which Access to delete.
+     */
+    where: AccessWhereUniqueInput
+  }
+
+  /**
+   * Access deleteMany
+   */
+  export type AccessDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Accesses to delete
+     */
+    where?: AccessWhereInput
+    /**
+     * Limit how many Accesses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Access without action
+   */
+  export type AccessDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Access
+     */
+    select?: AccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Access
+     */
+    omit?: AccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccessInclude<ExtArgs> | null
   }
 
 
@@ -3103,6 +4466,14 @@ export namespace Prisma {
   };
 
   export type RoomScalarFieldEnum = (typeof RoomScalarFieldEnum)[keyof typeof RoomScalarFieldEnum]
+
+
+  export const AccessScalarFieldEnum: {
+    userId: 'userId',
+    roomId: 'roomId'
+  };
+
+  export type AccessScalarFieldEnum = (typeof AccessScalarFieldEnum)[keyof typeof AccessScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3213,6 +4584,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    access?: AccessListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3225,6 +4597,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    access?: AccessOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3240,6 +4613,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    access?: AccessListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -3283,6 +4657,7 @@ export namespace Prisma {
     accessLevel?: IntFilter<"Room"> | number
     is_blocked?: BoolFilter<"Room"> | boolean
     deletedAt?: DateTimeNullableFilter<"Room"> | Date | string | null
+    access?: AccessListRelationFilter
   }
 
   export type RoomOrderByWithRelationInput = {
@@ -3291,6 +4666,7 @@ export namespace Prisma {
     accessLevel?: SortOrder
     is_blocked?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    access?: AccessOrderByRelationAggregateInput
   }
 
   export type RoomWhereUniqueInput = Prisma.AtLeast<{
@@ -3302,6 +4678,7 @@ export namespace Prisma {
     accessLevel?: IntFilter<"Room"> | number
     is_blocked?: BoolFilter<"Room"> | boolean
     deletedAt?: DateTimeNullableFilter<"Room"> | Date | string | null
+    access?: AccessListRelationFilter
   }, "id">
 
   export type RoomOrderByWithAggregationInput = {
@@ -3328,6 +4705,52 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Room"> | Date | string | null
   }
 
+  export type AccessWhereInput = {
+    AND?: AccessWhereInput | AccessWhereInput[]
+    OR?: AccessWhereInput[]
+    NOT?: AccessWhereInput | AccessWhereInput[]
+    userId?: IntFilter<"Access"> | number
+    roomId?: StringFilter<"Access"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    room?: XOR<RoomScalarRelationFilter, RoomWhereInput>
+  }
+
+  export type AccessOrderByWithRelationInput = {
+    userId?: SortOrder
+    roomId?: SortOrder
+    user?: UserOrderByWithRelationInput
+    room?: RoomOrderByWithRelationInput
+  }
+
+  export type AccessWhereUniqueInput = Prisma.AtLeast<{
+    userId_roomId?: AccessUserIdRoomIdCompoundUniqueInput
+    AND?: AccessWhereInput | AccessWhereInput[]
+    OR?: AccessWhereInput[]
+    NOT?: AccessWhereInput | AccessWhereInput[]
+    userId?: IntFilter<"Access"> | number
+    roomId?: StringFilter<"Access"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    room?: XOR<RoomScalarRelationFilter, RoomWhereInput>
+  }, "userId_roomId">
+
+  export type AccessOrderByWithAggregationInput = {
+    userId?: SortOrder
+    roomId?: SortOrder
+    _count?: AccessCountOrderByAggregateInput
+    _avg?: AccessAvgOrderByAggregateInput
+    _max?: AccessMaxOrderByAggregateInput
+    _min?: AccessMinOrderByAggregateInput
+    _sum?: AccessSumOrderByAggregateInput
+  }
+
+  export type AccessScalarWhereWithAggregatesInput = {
+    AND?: AccessScalarWhereWithAggregatesInput | AccessScalarWhereWithAggregatesInput[]
+    OR?: AccessScalarWhereWithAggregatesInput[]
+    NOT?: AccessScalarWhereWithAggregatesInput | AccessScalarWhereWithAggregatesInput[]
+    userId?: IntWithAggregatesFilter<"Access"> | number
+    roomId?: StringWithAggregatesFilter<"Access"> | string
+  }
+
   export type UserCreateInput = {
     name: string
     email: string
@@ -3337,6 +4760,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    access?: AccessCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3349,6 +4773,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    access?: AccessUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -3360,6 +4785,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    access?: AccessUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3372,6 +4798,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    access?: AccessUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3415,6 +4842,7 @@ export namespace Prisma {
     accessLevel: number
     is_blocked?: boolean
     deletedAt?: Date | string | null
+    access?: AccessCreateNestedManyWithoutRoomInput
   }
 
   export type RoomUncheckedCreateInput = {
@@ -3423,6 +4851,7 @@ export namespace Prisma {
     accessLevel: number
     is_blocked?: boolean
     deletedAt?: Date | string | null
+    access?: AccessUncheckedCreateNestedManyWithoutRoomInput
   }
 
   export type RoomUpdateInput = {
@@ -3431,6 +4860,7 @@ export namespace Prisma {
     accessLevel?: IntFieldUpdateOperationsInput | number
     is_blocked?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    access?: AccessUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateInput = {
@@ -3439,6 +4869,7 @@ export namespace Prisma {
     accessLevel?: IntFieldUpdateOperationsInput | number
     is_blocked?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    access?: AccessUncheckedUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomCreateManyInput = {
@@ -3463,6 +4894,40 @@ export namespace Prisma {
     accessLevel?: IntFieldUpdateOperationsInput | number
     is_blocked?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AccessCreateInput = {
+    user: UserCreateNestedOneWithoutAccessInput
+    room: RoomCreateNestedOneWithoutAccessInput
+  }
+
+  export type AccessUncheckedCreateInput = {
+    userId: number
+    roomId: string
+  }
+
+  export type AccessUpdateInput = {
+    user?: UserUpdateOneRequiredWithoutAccessNestedInput
+    room?: RoomUpdateOneRequiredWithoutAccessNestedInput
+  }
+
+  export type AccessUncheckedUpdateInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    roomId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AccessCreateManyInput = {
+    userId: number
+    roomId: string
+  }
+
+  export type AccessUpdateManyMutationInput = {
+
+  }
+
+  export type AccessUncheckedUpdateManyInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    roomId?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -3513,9 +4978,19 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type AccessListRelationFilter = {
+    every?: AccessWhereInput
+    some?: AccessWhereInput
+    none?: AccessWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type AccessOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -3704,6 +5179,58 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type RoomScalarRelationFilter = {
+    is?: RoomWhereInput
+    isNot?: RoomWhereInput
+  }
+
+  export type AccessUserIdRoomIdCompoundUniqueInput = {
+    userId: number
+    roomId: string
+  }
+
+  export type AccessCountOrderByAggregateInput = {
+    userId?: SortOrder
+    roomId?: SortOrder
+  }
+
+  export type AccessAvgOrderByAggregateInput = {
+    userId?: SortOrder
+  }
+
+  export type AccessMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    roomId?: SortOrder
+  }
+
+  export type AccessMinOrderByAggregateInput = {
+    userId?: SortOrder
+    roomId?: SortOrder
+  }
+
+  export type AccessSumOrderByAggregateInput = {
+    userId?: SortOrder
+  }
+
+  export type AccessCreateNestedManyWithoutUserInput = {
+    create?: XOR<AccessCreateWithoutUserInput, AccessUncheckedCreateWithoutUserInput> | AccessCreateWithoutUserInput[] | AccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccessCreateOrConnectWithoutUserInput | AccessCreateOrConnectWithoutUserInput[]
+    createMany?: AccessCreateManyUserInputEnvelope
+    connect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+  }
+
+  export type AccessUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AccessCreateWithoutUserInput, AccessUncheckedCreateWithoutUserInput> | AccessCreateWithoutUserInput[] | AccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccessCreateOrConnectWithoutUserInput | AccessCreateOrConnectWithoutUserInput[]
+    createMany?: AccessCreateManyUserInputEnvelope
+    connect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -3724,12 +5251,110 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
+  export type AccessUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AccessCreateWithoutUserInput, AccessUncheckedCreateWithoutUserInput> | AccessCreateWithoutUserInput[] | AccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccessCreateOrConnectWithoutUserInput | AccessCreateOrConnectWithoutUserInput[]
+    upsert?: AccessUpsertWithWhereUniqueWithoutUserInput | AccessUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AccessCreateManyUserInputEnvelope
+    set?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    disconnect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    delete?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    connect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    update?: AccessUpdateWithWhereUniqueWithoutUserInput | AccessUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AccessUpdateManyWithWhereWithoutUserInput | AccessUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AccessScalarWhereInput | AccessScalarWhereInput[]
+  }
+
+  export type AccessUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AccessCreateWithoutUserInput, AccessUncheckedCreateWithoutUserInput> | AccessCreateWithoutUserInput[] | AccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccessCreateOrConnectWithoutUserInput | AccessCreateOrConnectWithoutUserInput[]
+    upsert?: AccessUpsertWithWhereUniqueWithoutUserInput | AccessUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AccessCreateManyUserInputEnvelope
+    set?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    disconnect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    delete?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    connect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    update?: AccessUpdateWithWhereUniqueWithoutUserInput | AccessUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AccessUpdateManyWithWhereWithoutUserInput | AccessUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AccessScalarWhereInput | AccessScalarWhereInput[]
+  }
+
+  export type AccessCreateNestedManyWithoutRoomInput = {
+    create?: XOR<AccessCreateWithoutRoomInput, AccessUncheckedCreateWithoutRoomInput> | AccessCreateWithoutRoomInput[] | AccessUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: AccessCreateOrConnectWithoutRoomInput | AccessCreateOrConnectWithoutRoomInput[]
+    createMany?: AccessCreateManyRoomInputEnvelope
+    connect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+  }
+
+  export type AccessUncheckedCreateNestedManyWithoutRoomInput = {
+    create?: XOR<AccessCreateWithoutRoomInput, AccessUncheckedCreateWithoutRoomInput> | AccessCreateWithoutRoomInput[] | AccessUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: AccessCreateOrConnectWithoutRoomInput | AccessCreateOrConnectWithoutRoomInput[]
+    createMany?: AccessCreateManyRoomInputEnvelope
+    connect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type AccessUpdateManyWithoutRoomNestedInput = {
+    create?: XOR<AccessCreateWithoutRoomInput, AccessUncheckedCreateWithoutRoomInput> | AccessCreateWithoutRoomInput[] | AccessUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: AccessCreateOrConnectWithoutRoomInput | AccessCreateOrConnectWithoutRoomInput[]
+    upsert?: AccessUpsertWithWhereUniqueWithoutRoomInput | AccessUpsertWithWhereUniqueWithoutRoomInput[]
+    createMany?: AccessCreateManyRoomInputEnvelope
+    set?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    disconnect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    delete?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    connect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    update?: AccessUpdateWithWhereUniqueWithoutRoomInput | AccessUpdateWithWhereUniqueWithoutRoomInput[]
+    updateMany?: AccessUpdateManyWithWhereWithoutRoomInput | AccessUpdateManyWithWhereWithoutRoomInput[]
+    deleteMany?: AccessScalarWhereInput | AccessScalarWhereInput[]
+  }
+
+  export type AccessUncheckedUpdateManyWithoutRoomNestedInput = {
+    create?: XOR<AccessCreateWithoutRoomInput, AccessUncheckedCreateWithoutRoomInput> | AccessCreateWithoutRoomInput[] | AccessUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: AccessCreateOrConnectWithoutRoomInput | AccessCreateOrConnectWithoutRoomInput[]
+    upsert?: AccessUpsertWithWhereUniqueWithoutRoomInput | AccessUpsertWithWhereUniqueWithoutRoomInput[]
+    createMany?: AccessCreateManyRoomInputEnvelope
+    set?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    disconnect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    delete?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    connect?: AccessWhereUniqueInput | AccessWhereUniqueInput[]
+    update?: AccessUpdateWithWhereUniqueWithoutRoomInput | AccessUpdateWithWhereUniqueWithoutRoomInput[]
+    updateMany?: AccessUpdateManyWithWhereWithoutRoomInput | AccessUpdateManyWithWhereWithoutRoomInput[]
+    deleteMany?: AccessScalarWhereInput | AccessScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutAccessInput = {
+    create?: XOR<UserCreateWithoutAccessInput, UserUncheckedCreateWithoutAccessInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAccessInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type RoomCreateNestedOneWithoutAccessInput = {
+    create?: XOR<RoomCreateWithoutAccessInput, RoomUncheckedCreateWithoutAccessInput>
+    connectOrCreate?: RoomCreateOrConnectWithoutAccessInput
+    connect?: RoomWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutAccessNestedInput = {
+    create?: XOR<UserCreateWithoutAccessInput, UserUncheckedCreateWithoutAccessInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAccessInput
+    upsert?: UserUpsertWithoutAccessInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccessInput, UserUpdateWithoutAccessInput>, UserUncheckedUpdateWithoutAccessInput>
+  }
+
+  export type RoomUpdateOneRequiredWithoutAccessNestedInput = {
+    create?: XOR<RoomCreateWithoutAccessInput, RoomUncheckedCreateWithoutAccessInput>
+    connectOrCreate?: RoomCreateOrConnectWithoutAccessInput
+    upsert?: RoomUpsertWithoutAccessInput
+    connect?: RoomWhereUniqueInput
+    update?: XOR<XOR<RoomUpdateToOneWithWhereWithoutAccessInput, RoomUpdateWithoutAccessInput>, RoomUncheckedUpdateWithoutAccessInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -3904,6 +5529,224 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type AccessCreateWithoutUserInput = {
+    room: RoomCreateNestedOneWithoutAccessInput
+  }
+
+  export type AccessUncheckedCreateWithoutUserInput = {
+    roomId: string
+  }
+
+  export type AccessCreateOrConnectWithoutUserInput = {
+    where: AccessWhereUniqueInput
+    create: XOR<AccessCreateWithoutUserInput, AccessUncheckedCreateWithoutUserInput>
+  }
+
+  export type AccessCreateManyUserInputEnvelope = {
+    data: AccessCreateManyUserInput | AccessCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AccessUpsertWithWhereUniqueWithoutUserInput = {
+    where: AccessWhereUniqueInput
+    update: XOR<AccessUpdateWithoutUserInput, AccessUncheckedUpdateWithoutUserInput>
+    create: XOR<AccessCreateWithoutUserInput, AccessUncheckedCreateWithoutUserInput>
+  }
+
+  export type AccessUpdateWithWhereUniqueWithoutUserInput = {
+    where: AccessWhereUniqueInput
+    data: XOR<AccessUpdateWithoutUserInput, AccessUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AccessUpdateManyWithWhereWithoutUserInput = {
+    where: AccessScalarWhereInput
+    data: XOR<AccessUpdateManyMutationInput, AccessUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AccessScalarWhereInput = {
+    AND?: AccessScalarWhereInput | AccessScalarWhereInput[]
+    OR?: AccessScalarWhereInput[]
+    NOT?: AccessScalarWhereInput | AccessScalarWhereInput[]
+    userId?: IntFilter<"Access"> | number
+    roomId?: StringFilter<"Access"> | string
+  }
+
+  export type AccessCreateWithoutRoomInput = {
+    user: UserCreateNestedOneWithoutAccessInput
+  }
+
+  export type AccessUncheckedCreateWithoutRoomInput = {
+    userId: number
+  }
+
+  export type AccessCreateOrConnectWithoutRoomInput = {
+    where: AccessWhereUniqueInput
+    create: XOR<AccessCreateWithoutRoomInput, AccessUncheckedCreateWithoutRoomInput>
+  }
+
+  export type AccessCreateManyRoomInputEnvelope = {
+    data: AccessCreateManyRoomInput | AccessCreateManyRoomInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AccessUpsertWithWhereUniqueWithoutRoomInput = {
+    where: AccessWhereUniqueInput
+    update: XOR<AccessUpdateWithoutRoomInput, AccessUncheckedUpdateWithoutRoomInput>
+    create: XOR<AccessCreateWithoutRoomInput, AccessUncheckedCreateWithoutRoomInput>
+  }
+
+  export type AccessUpdateWithWhereUniqueWithoutRoomInput = {
+    where: AccessWhereUniqueInput
+    data: XOR<AccessUpdateWithoutRoomInput, AccessUncheckedUpdateWithoutRoomInput>
+  }
+
+  export type AccessUpdateManyWithWhereWithoutRoomInput = {
+    where: AccessScalarWhereInput
+    data: XOR<AccessUpdateManyMutationInput, AccessUncheckedUpdateManyWithoutRoomInput>
+  }
+
+  export type UserCreateWithoutAccessInput = {
+    name: string
+    email: string
+    password: string
+    level?: number
+    profile_img: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type UserUncheckedCreateWithoutAccessInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    level?: number
+    profile_img: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type UserCreateOrConnectWithoutAccessInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAccessInput, UserUncheckedCreateWithoutAccessInput>
+  }
+
+  export type RoomCreateWithoutAccessInput = {
+    id?: string
+    description?: string | null
+    accessLevel: number
+    is_blocked?: boolean
+    deletedAt?: Date | string | null
+  }
+
+  export type RoomUncheckedCreateWithoutAccessInput = {
+    id?: string
+    description?: string | null
+    accessLevel: number
+    is_blocked?: boolean
+    deletedAt?: Date | string | null
+  }
+
+  export type RoomCreateOrConnectWithoutAccessInput = {
+    where: RoomWhereUniqueInput
+    create: XOR<RoomCreateWithoutAccessInput, RoomUncheckedCreateWithoutAccessInput>
+  }
+
+  export type UserUpsertWithoutAccessInput = {
+    update: XOR<UserUpdateWithoutAccessInput, UserUncheckedUpdateWithoutAccessInput>
+    create: XOR<UserCreateWithoutAccessInput, UserUncheckedCreateWithoutAccessInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAccessInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAccessInput, UserUncheckedUpdateWithoutAccessInput>
+  }
+
+  export type UserUpdateWithoutAccessInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    profile_img?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserUncheckedUpdateWithoutAccessInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    profile_img?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type RoomUpsertWithoutAccessInput = {
+    update: XOR<RoomUpdateWithoutAccessInput, RoomUncheckedUpdateWithoutAccessInput>
+    create: XOR<RoomCreateWithoutAccessInput, RoomUncheckedCreateWithoutAccessInput>
+    where?: RoomWhereInput
+  }
+
+  export type RoomUpdateToOneWithWhereWithoutAccessInput = {
+    where?: RoomWhereInput
+    data: XOR<RoomUpdateWithoutAccessInput, RoomUncheckedUpdateWithoutAccessInput>
+  }
+
+  export type RoomUpdateWithoutAccessInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessLevel?: IntFieldUpdateOperationsInput | number
+    is_blocked?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type RoomUncheckedUpdateWithoutAccessInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessLevel?: IntFieldUpdateOperationsInput | number
+    is_blocked?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AccessCreateManyUserInput = {
+    roomId: string
+  }
+
+  export type AccessUpdateWithoutUserInput = {
+    room?: RoomUpdateOneRequiredWithoutAccessNestedInput
+  }
+
+  export type AccessUncheckedUpdateWithoutUserInput = {
+    roomId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AccessUncheckedUpdateManyWithoutUserInput = {
+    roomId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AccessCreateManyRoomInput = {
+    userId: number
+  }
+
+  export type AccessUpdateWithoutRoomInput = {
+    user?: UserUpdateOneRequiredWithoutAccessNestedInput
+  }
+
+  export type AccessUncheckedUpdateWithoutRoomInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AccessUncheckedUpdateManyWithoutRoomInput = {
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
 

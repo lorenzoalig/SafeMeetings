@@ -25,6 +25,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
+  access Access[]
 }
 
 // Room Entity
@@ -34,4 +35,14 @@ model Room {
   accessLevel Int
   is_blocked Boolean @default(false)
   deletedAt DateTime?
+  access Access[]
+}
+
+// Access Log Table
+model Access {
+  userId Int
+  roomId String
+  user User @relation(fields: [userId], references: [id])
+  room Room @relation(fields: [roomId], references: [id])
+  @@id(fields: [userId, roomId])
 }

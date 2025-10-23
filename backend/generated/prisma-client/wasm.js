@@ -112,6 +112,11 @@ exports.Prisma.RoomScalarFieldEnum = {
   deletedAt: 'deletedAt'
 };
 
+exports.Prisma.AccessScalarFieldEnum = {
+  userId: 'userId',
+  roomId: 'roomId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -130,7 +135,8 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Room: 'Room'
+  Room: 'Room',
+  Access: 'Access'
 };
 /**
  * Create the Client
@@ -179,13 +185,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma-client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// User Entity\nmodel User {\n  id          Int       @id @default(autoincrement())\n  name        String\n  email       String    @unique\n  password    String\n  level       Int       @default(1)\n  profile_img String\n  createdAt   DateTime  @default(now())\n  updatedAt   DateTime  @updatedAt\n  deletedAt   DateTime?\n}\n\n// Room Entity\nmodel Room {\n  id          String    @id @default(uuid())\n  description String?\n  accessLevel Int\n  is_blocked  Boolean   @default(false)\n  deletedAt   DateTime?\n}\n",
-  "inlineSchemaHash": "102716664b883366ff5b35c2f2e36c9a02747957785992a962e06610bf3632e7",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma-client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// User Entity\nmodel User {\n  id          Int       @id @default(autoincrement())\n  name        String\n  email       String    @unique\n  password    String\n  level       Int       @default(1)\n  profile_img String\n  createdAt   DateTime  @default(now())\n  updatedAt   DateTime  @updatedAt\n  deletedAt   DateTime?\n  access      Access[]\n}\n\n// Room Entity\nmodel Room {\n  id          String    @id @default(uuid())\n  description String?\n  accessLevel Int\n  is_blocked  Boolean   @default(false)\n  deletedAt   DateTime?\n  access      Access[]\n}\n\n// Access Log Table\nmodel Access {\n  userId Int\n  roomId String\n  user   User   @relation(fields: [userId], references: [id])\n  room   Room   @relation(fields: [roomId], references: [id])\n\n  @@id(fields: [userId, roomId])\n}\n",
+  "inlineSchemaHash": "7fede19b1276bbf50f8cd87dae4d1ffea7d32d07b353d916535df9df9020b1f4",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"level\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"profile_img\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Room\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessLevel\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"is_blocked\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"level\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"profile_img\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"access\",\"kind\":\"object\",\"type\":\"Access\",\"relationName\":\"AccessToUser\"}],\"dbName\":null},\"Room\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessLevel\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"is_blocked\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"access\",\"kind\":\"object\",\"type\":\"Access\",\"relationName\":\"AccessToRoom\"}],\"dbName\":null},\"Access\":{\"fields\":[{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"roomId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccessToUser\"},{\"name\":\"room\",\"kind\":\"object\",\"type\":\"Room\",\"relationName\":\"AccessToRoom\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),
