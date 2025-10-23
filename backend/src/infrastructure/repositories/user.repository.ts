@@ -65,7 +65,7 @@ export class UserRepository {
                 data: prismaInput
             });
         } catch (error) {
-            if(error instanceof Prisma.PrismaClientKnownRequestError) {        // FIXME: Do proper error handling through Exceptions Filter
+            if(error instanceof Prisma.PrismaClientKnownRequestError) {        // Todo: Do proper error handling through Exceptions Filter
                 if(error.code == "P2002")
                     throw new InternalServerErrorException(`Error: an user with this ${error.meta?.target} already exists.`);
             }    
