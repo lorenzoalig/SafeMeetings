@@ -1,21 +1,19 @@
 import { Controller, Get, Req, Res, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "../guards/auth.guard";
-import { PdfReportService } from "../services/pdf-report.service";
-
-
+import { ReportService } from "../services/report.service";
 
 
 @Controller("report")
-export class PdfReportController {
-    constructor(private readonly pdfReportService: PdfReportService) {}
+export class ReportController {
+    constructor(private readonly pdfReportService: ReportService) {}
 
     @Get()
     @UseGuards(AuthGuard)
-    async getReport(@Req() req, @Res() res) {
+    async getReport(@Res() res) {
         res.setHeader("Content-Type","application/pdf");
         res.setHeader("Content-disposition","inline; filename=user-report.pdf");
 
-        const doc = await this.pdfReportService.createReport(req);
+        const doc = await this.pdfReportService.createReport();
         doc.pipe(res);
         doc.end();
     }

@@ -20,7 +20,10 @@ export class BadgeGeneratorService {
         // ==== HEADER ====
         const logoPath = path.join(__dirname, "..", "..", "..", "assets", "techlo-logo.png");
         doc.image(logoPath, 50, 5, { width: 125 });
-        doc.fontSize(14).text("USER BADGE", 262, 70);
+        doc.fontSize(14).text("USER BADGE", 50, 70, {
+            align: "center",
+            width: doc.page.width - 100,
+        });
         doc.moveTo(50, 100).lineTo(550, 100).stroke();
 
         // ==== CONTENT ====
