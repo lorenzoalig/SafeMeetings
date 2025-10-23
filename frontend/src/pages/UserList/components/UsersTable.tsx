@@ -2,6 +2,7 @@ import { FiTrash2 } from "react-icons/fi";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { User, UserWithBadge } from "../UserList";
 import { FaIdCard } from "react-icons/fa";
+import useUserAPI from "../../../hooks/useUserAPI";
 
 export interface UsersTablePRops {
   data: UserWithBadge[];
@@ -18,6 +19,7 @@ const UsersTable: React.FC<UsersTablePRops> = ({
     console.log(url);
     window.open(url, "_blank");
   };
+  const { getBadgeByUserId } = useUserAPI();
 
   console.log("data", data);
   return (
@@ -52,7 +54,7 @@ const UsersTable: React.FC<UsersTablePRops> = ({
           <span className="flex">
             <FaIdCard
               className="text-primary text-2xl mx-2 hover:cursor-pointer"
-              onClick={() => handleBadgeClick(user.badge_url)}
+              onClick={() => getBadgeByUserId(user.id) }      // handleBadgeClick(user.badge_url)
             />
             <MdOutlineModeEdit
               onClick={() => onUserEdit(user)}

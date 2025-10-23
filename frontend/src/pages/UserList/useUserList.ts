@@ -3,7 +3,7 @@ import { NewUser, User, UserWithBadge } from "./UserList";
 import useUserAPI from "../../hooks/useUserAPI";
 
 const useUserList = () => {
-  const { getUsers, createUser, editUser, deleteUser, getBadgeByUserId } =
+  const { getUsers, createUser, editUser, deleteUser } = //getBadgeByUserId
     useUserAPI();
 
   const [apiData, setApiData] = useState<UserWithBadge[]>([]);
@@ -14,13 +14,13 @@ const useUserList = () => {
   const fetchUsers = async () => {
     const users = await getUsers();
     if (users) {
-      const usersWithBadge = await Promise.all(
-        users.map(async (user: User) => {
-          const badge = await getBadgeByUserId(user.id);
-          return { ...user, badge_url: badge?.badge_url };
-        }),
-      );
-      setApiData(usersWithBadge);
+      // const usersWithBadge = await Promise.all(
+      //   users.map(async (user: User) => {
+      //     const badge = await getBadgeByUserId(user.id);
+      //     return { ...user, badge_url: badge?.badge_url };
+      //   }),
+      // );
+      setApiData(users);
       setLoading(false);
     }
   };
@@ -28,10 +28,10 @@ const useUserList = () => {
   const handleCreateUser = async (user: NewUser) => {
     const newUser = await createUser(user);
     if (newUser) {
-      const badge = await getBadgeByUserId(newUser.id);
+      // const badge = await getBadgeByUserId(newUser.id);
       setApiData((prevData) => [
         ...prevData,
-        { ...newUser, badge_url: badge?.badge_url },
+        { ...newUser },   // badge_url: badge?.badge_url
       ]);
     }
   };

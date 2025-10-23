@@ -155,7 +155,7 @@ const useUserAPI = () => {
       // Criar um link de download
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "relatorio.pdf");
+      link.setAttribute("download", "usersreport.pdf");
 
       // Simular clique no link para iniciar o download
       document.body.appendChild(link);
@@ -185,17 +185,46 @@ const useUserAPI = () => {
     setError(null);
 
     try {
-      const response = await fetch(`${BASE_URL}/badge/${id}`);
+      const response = await fetch(`${BASE_URL}/badge/${id}`, {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token") || ""
+        }
+      });
 
       if (!response.ok) {
         throw new Error("Erro ao buscar badge");
       }
 
-      const data = await response.json();
-      return data;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      setError(error.message);
+      const blob = await response.blob();
+
+      // Criar URL a partir do Blob
+      const url = window.URL.createObjectURL(blob);
+
+      // Criar um link de download
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `badge_user_${id}.pdf`);
+
+      // Simular clique no link para iniciar o download
+      document.body.appendChild(link);
+      link.click();
+
+      // Remover o link depois de usar (verificar se parentNode não é null)
+      if (link.parentNode) {
+        link.parentNode.removeChild(link);
+      }
+
+      // Liberar URL para evitar vazamento de memória
+      window.URL.revokeObjectURL(url);
+
+      return true;
+    } catch (error) {
+      // Asserção de tipo para garantir que error tem a propriedade message
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Unknown error");
+      }
       return null;
     }
   };
@@ -210,7 +239,7 @@ const useUserAPI = () => {
         throw new Error("Erro ao buscar usuário");
       }
 
-      const data = await response.json();
+      const data = await response.blob();
       return data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
