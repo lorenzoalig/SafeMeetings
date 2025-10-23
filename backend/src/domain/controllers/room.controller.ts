@@ -5,12 +5,24 @@ import { CreateRoomDto } from "../dtos/room/create-room.dto";
 import { AuthGuard } from "src/application/guards/auth.guard";
 import { Ranks } from "src/application/decorators/rank.decorator";
 import { RankGuard } from "src/application/guards/rank.guard";
+import { EnterRoomGuard } from "src/application/guards/enter-room.guard";
 
 
-@Controller("rooms")
+@Controller("room")
 @UseGuards(AuthGuard)
 export class RoomController {
     constructor(private readonly roomService: RoomService) {}
+
+    /**
+     * Route for entering a room
+     * @access authenticated user with sufficient access level
+     * @param id the room's UUID
+     */
+    @Post("enter/:id")
+    @UseGuards(AuthGuard, EnterRoomGuard)
+    enterRoom() {
+        this.roomService.joinRoom();
+    }
 
     /**
      * Route for getting all rooms
