@@ -23,6 +23,7 @@ export class UserMapper {
         const prismaUser: Prisma.UserCreateInput = {
             name: dto.name,
             email: dto.email,
+            level: dto.level,
             password: dto.password,
             profile_img: dto.profile_img
         }

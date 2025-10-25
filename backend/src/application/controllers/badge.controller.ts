@@ -1,4 +1,4 @@
-import { Controller, Param, Post, Res, UseGuards } from "@nestjs/common";
+import { Controller, Get, Param, Res, UseGuards } from "@nestjs/common";
 import { BadgeService } from "../services/badge.service";
 import { AuthGuard } from "../guards/auth.guard";
 
@@ -7,7 +7,7 @@ import { AuthGuard } from "../guards/auth.guard";
 export class BadgeController {
     constructor(private readonly badgeService: BadgeService) {}
 
-    @Post(":id")
+    @Get(":id")
     @UseGuards(AuthGuard)
     async getBadge(
         @Param("id") id: number,

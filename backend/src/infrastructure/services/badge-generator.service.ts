@@ -37,7 +37,7 @@ export class BadgeGeneratorService {
         if(user.profile_img) {
             const profileImgBase64 = user.profile_img;
             const profileImgBuffer = Buffer.from(profileImgBase64, "base64");
-            doc.image(profileImgBuffer, 400, 150, { width: 150, height: 150, fit: [150, 150] });
+            doc.image(profileImgBuffer, 375, 150, { width: 330, height: 330, fit: [150, 150] });
         }
         
         // ==== FOOTER ====
