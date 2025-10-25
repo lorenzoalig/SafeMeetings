@@ -11,11 +11,22 @@ const useImage = () => {
 
     return new Promise((resolve) => {
       imageObj.onload = () => {
-        canvas.width = w;
-        canvas.height = h;
+        let { width, height } = imageObj;
+
+        // calcula proporção mantendo limites
+        const ratio = Math.min(w / width, h / height);
+        width = width * ratio;
+        height = height * ratio;
+        
+
+        //canvas.width = w;
+        //canvas.height = h;
+
+        canvas.width = width;
+        canvas.height = height
 
         if (ctx) {
-          ctx.drawImage(imageObj, 0, 0, w, h);
+          ctx.drawImage(imageObj, 0, 0, width, height);
           canvasToFile(canvas, image.name).then(resolve);
         } else {
           resolve(null);

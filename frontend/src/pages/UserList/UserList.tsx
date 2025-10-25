@@ -10,7 +10,7 @@ import UsersTable from "./components/UsersTable";
 export interface User {
   id: string;
   email: string;
-  level: number;
+  level?: number;
   name: string;
   profile_img: string;
 }

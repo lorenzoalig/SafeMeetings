@@ -10,9 +10,8 @@ export class ReportController {
     @Get()
     @UseGuards(AuthGuard)
     async getReport(@Res() res) {
-        // res.setHeader("Content-Type","application/pdf");     // Opens in browser for insomnia
-        // res.setHeader("Content-disposition","inline; filename=user-report.pdf");
-
+        res.setHeader("Content-Type","application/pdf");     // Opens in browser for insomnia
+        res.setHeader("Content-disposition","inline; filename=user-report.pdf");
         const doc = await this.pdfReportService.createReport();
         doc.pipe(res);
         doc.end();

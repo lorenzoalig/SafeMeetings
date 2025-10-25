@@ -84,7 +84,7 @@ const useCreateUserModal = (
       email: fields[1].value,
       level: parseInt(fields[2].value),
       password: fields[3].value,
-      profile_img: imageLink!.split(",")[1] || "",
+      profile_img: imageLink?.split(",")[1] || "",
     };
     onCreateUser(newUser);
     setFields(initialState);

@@ -13,8 +13,8 @@ export class BadgeController {
         @Param("id") id: number,
         @Res() res
     ) {
-        // res.setHeader("Content-Type", "application/pdf");
-        // res.setHeader("Content-disposition", "inline; filename=badge.pdf");
+        res.setHeader("Content-Type", "application/pdf");
+        res.setHeader("Content-disposition", "inline; filename=badge.pdf");
         const doc = await this.badgeService.createBadge(+id);
         doc.pipe(res);
         doc.end();

@@ -71,9 +71,10 @@ const useUserAPI = () => {
 
     try {
       const response = await fetch(`${BASE_URL}/users/${id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("token") || ""
         },
         body: JSON.stringify(newBody),
       });
@@ -148,20 +149,14 @@ const useUserAPI = () => {
       }
 
       const blob = await response.blob();
-
-      // Criar URL a partir do Blob
       const url = window.URL.createObjectURL(blob);
-
-      // Criar um link de download
+      
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "usersreport.pdf");
-
-      // Simular clique no link para iniciar o download
+      link.setAttribute("download", `users_report.pdf`);
       document.body.appendChild(link);
       link.click();
 
-      // Remover o link depois de usar (verificar se parentNode não é null)
       if (link.parentNode) {
         link.parentNode.removeChild(link);
       }
@@ -196,20 +191,14 @@ const useUserAPI = () => {
       }
 
       const blob = await response.blob();
-
-      // Criar URL a partir do Blob
       const url = window.URL.createObjectURL(blob);
 
-      // Criar um link de download
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", `badge_user_${id}.pdf`);
-
-      // Simular clique no link para iniciar o download
       document.body.appendChild(link);
       link.click();
 
-      // Remover o link depois de usar (verificar se parentNode não é null)
       if (link.parentNode) {
         link.parentNode.removeChild(link);
       }
@@ -239,7 +228,7 @@ const useUserAPI = () => {
         throw new Error("Erro ao buscar usuário");
       }
 
-      const data = await response.blob();
+      const data = await response.json();     // response.blob();?????
       return data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
