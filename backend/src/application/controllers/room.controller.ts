@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UseGuards, ValidationPipe } from "@nestjs/common";
-import { RoomService } from "../services/room.service";
-import { UpdateRoomDto } from "../dtos/room/update-room.dto";
-import { CreateRoomDto } from "../dtos/room/create-room.dto";
+import { RoomService } from "src/domain/services/room.service";
+import { UpdateRoomDto } from "src/domain/dtos/room/update-room.dto";
+import { CreateRoomDto } from "src/domain/dtos/room/create-room.dto";
 import { AuthGuard } from "src/application/guards/auth.guard";
 import { Ranks } from "src/application/decorators/rank.decorator";
 import { RankGuard } from "src/application/guards/rank.guard";

@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards, ValidationPipe } from "@nestjs/common";
-import { UserService } from "../services/user.service";
-import { CreateUserDto } from "../dtos/user/create-user.dto";
-import { UpdateUserDto } from "../dtos/user/update-user.dto";
-import { UserResponseDto } from "../dtos/user/user-response.dto";
+import { UserService } from "src/domain/services/user.service";
+import { CreateUserDto } from "src/domain/dtos/user/create-user.dto";
+import { UpdateUserDto } from "src/domain/dtos/user/update-user.dto";
+import { UserResponseDto } from "src/domain/dtos/user/user-response.dto";
+import { UpdateUserLevelDto } from "src/domain/dtos/user/update-user-level.dto";
 import { IsSelfAllowed, Ranks } from "src/application/decorators/rank.decorator";
 import { RankGuard } from "src/application/guards/rank.guard";
 import { AuthGuard } from "src/application/guards/auth.guard";
-import { UpdateUserLevelDto } from "../dtos/user/update-user-level.dto";
 
 
 @Controller("users")
