@@ -30,7 +30,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ login }) => {
       flex flex-col justify-center items-center "
       >
         <DiMagento className=" w-full h-full max-w-64 max-h-64 ml-auto mr-auto fill-primary" />
-        <h1 className="font-semibold text-4xl mb-8  text-primary">SafeCo™</h1>
+        <h1 className="font-semibold text-4xl mb-8  text-primary">SafeMeetings™</h1>
         <TextFields
           email={email}
           password={password}

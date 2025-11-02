@@ -1,3 +1,4 @@
+import { Type } from "class-transformer";
 import { IsNotEmpty, IsNumber, IsOptional, IsString, Max, MaxLength, Min } from "class-validator";
 
 // Room creation DTO
@@ -11,5 +12,6 @@ export class CreateRoomDto {
     @IsNumber()
     @Min(1)
     @Max(5)
+    @Type(() => Number)
     accessLevel: number
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { PlaceNoId } from "../../../hooks/usePlaceAPI";
+import { PlaceNoId } from "../../../../hooks/usePlaceAPI";
+
 
 const useCreatePlaceModal = (
   onClose: () => void,
@@ -42,7 +43,7 @@ const useCreatePlaceModal = (
   const handleSave = () => {
     const newPlace: PlaceNoId = {
       description: fields[0].value,
-      acessLevel: fields[1].value,
+      accessLevel: fields[1].value,
     };
     onCreatePlace(newPlace);
     setFields(initialState);
