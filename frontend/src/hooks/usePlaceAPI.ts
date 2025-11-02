@@ -95,6 +95,9 @@ const usePlaceAPI = () => {
     try {
       const response = await fetch(`${BASE_URL}/places/${id}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": "Bearer " + (localStorage.getItem("token")) || "",
+        }
       });
 
       if (!response.ok) {
