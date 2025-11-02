@@ -13,6 +13,7 @@ const PlacesTable: React.FC<PlacesTableProps> = ({
   onEdit,
   onDelete,
 }) => {
+  console.log("RENDERING TABLE WITH DATA:", data);
   return (
     <>
       <div className="sticky top-0 text-center flex justify-between items-center py-2 px-10 bg-gray-100 border-y border-gray-200">
@@ -36,7 +37,7 @@ const PlacesTable: React.FC<PlacesTableProps> = ({
             {item.description}
           </h1>
           <h1 className="font-normal text-md w-full text-gray-500">
-            {item.acessLevel}
+            {item.accessLevel}
           </h1>
           <span className="flex">
             <MdOutlineModeEdit

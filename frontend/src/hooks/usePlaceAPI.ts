@@ -3,7 +3,7 @@ import { useState } from "react";
 export type Place = {
   id: string;
   description: string;
-  acessLevel: string;
+  accessLevel: string;
 };
 
 export type PlaceNoId = Omit<Place, "id">;

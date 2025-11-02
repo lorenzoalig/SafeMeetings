@@ -15,6 +15,7 @@ const usePlaceList = () => {
     };
 
     fetchData();
+    console.log("PLACES DATA:", placesData);
   }, []);
 
   const handleCreateClick = () => {
