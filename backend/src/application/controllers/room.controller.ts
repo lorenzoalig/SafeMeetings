@@ -78,7 +78,6 @@ export class RoomController {
         @Param("id") id: string, 
         @Body(new ValidationPipe({
                 whitelist: true,
-                forbidNonWhitelisted: true,
                 transform: true
         })) dto: UpdateRoomDto
     ) {
