@@ -4,6 +4,7 @@ export type Place = {
   id: string;
   description: string;
   accessLevel: string;
+  is_locked?: boolean;
 };
 
 export type PlaceNoId = Omit<Place, "id">;

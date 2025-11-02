@@ -13,12 +13,14 @@ const PlacesTable: React.FC<PlacesTableProps> = ({
   onEdit,
   onDelete,
 }) => {
-  console.log("RENDERING TABLE WITH DATA:", data);
   return (
     <>
       <div className="sticky top-0 text-center flex justify-between items-center py-2 px-10 bg-gray-100 border-y border-gray-200">
         <h1 className="text-left font-normal text-lg w-full text-gray-500">
           NOME
+        </h1>
+        <h1 className="font-normal text-lg w-full text-gray-500">
+          STATUS
         </h1>
         <h1 className="font-normal text-lg w-full text-gray-500">
           NÍVEL DE ACESSO
@@ -35,6 +37,13 @@ const PlacesTable: React.FC<PlacesTableProps> = ({
         >
           <h1 className="text-left font-normal text-md w-full text-gray-500">
             {item.description}
+          </h1>
+          <h1 className="font-normal text-md w-full text-gray-500">
+            {item.is_locked ? (
+              <span className="badge badge-error badge-lg">Trancada</span>
+            ) : (
+              <span className="badge badge-success badge-lg">Aberta</span>
+            )}
           </h1>
           <h1 className="font-normal text-md w-full text-gray-500">
             {item.accessLevel}
