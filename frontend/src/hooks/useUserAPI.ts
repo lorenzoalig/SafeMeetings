@@ -222,7 +222,12 @@ const useUserAPI = () => {
     setError(null);
 
     try {
-      const response = await fetch(`${BASE_URL}/users/${id}`);
+      const response = await fetch(`${BASE_URL}/users/${id}`, {
+        headers: {
+          "authorization": "Bearer " + localStorage.getItem("token") || "",
+        }
+      }
+      );
 
       if (!response.ok) {
         throw new Error("Erro ao buscar usuário");

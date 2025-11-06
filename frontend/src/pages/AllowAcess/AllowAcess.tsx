@@ -44,9 +44,18 @@ const AllowAcess = () => {
     const fetchData = async () => {
       if (scanID) {
         const data = await getUserById(scanID);
+        let profileImg = data?.profile_img;
+        
+        if(profileImg && !profileImg.startsWith("data:")) {
+          const mimeType = profileImg ? detectImageMime(profileImg) : null;
+          profileImg = mimeType ? `data:${mimeType || "image/png"};base64,${profileImg}` : null;
+        }
+        data.profile_img = profileImg;
         setUser(data);
+        console.log(data);
+        console.log(selectedPlace);
         if (data && selectedPlace) {
-          if (data.level >= selectedPlace?.acessLevel) {
+          if (data.level >= selectedPlace?.accessLevel) {
             setAcessStatus("Acesso Permitido");
           } else {
             setAcessStatus("Acesso Negado");
@@ -71,7 +80,7 @@ const AllowAcess = () => {
     <PageWrapper>
       <div className="flex justify-between items-center my-7 mx-10">
         <h1 className="font-semibold text-2xl ">
-          Validar Acesso | {"Nível " + (selectedPlace?.acessLevel || "")}
+          Validar Acesso | {"Nível " + (selectedPlace?.accessLevel || "")}
         </h1>
         <div className="flex gap-4">
           <select
@@ -132,5 +141,23 @@ const AllowAcess = () => {
     </PageWrapper>
   );
 };
+
+function detectImageMime(base64: string): string | null {
+  // Pega os primeiros bytes decodificados
+  const firstBytes = atob(base64.slice(0, 20)); // decodifica só um pedaço
+
+  const bytes = firstBytes
+    .split("")
+    .map((char) => char.charCodeAt(0).toString(16).padStart(2, "0"))
+    .join("");
+
+  if (bytes.startsWith("ffd8ff")) return "image/jpeg";
+  if (bytes.startsWith("89504e47")) return "image/png";
+  if (bytes.startsWith("47494638")) return "image/gif";
+  if (bytes.startsWith("424d")) return "image/bmp";
+  if (bytes.startsWith("52494646")) return "image/webp"; // pode variar
+
+  return null;
+}
 
 export default AllowAcess;
