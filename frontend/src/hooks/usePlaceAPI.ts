@@ -3,7 +3,8 @@ import { useState } from "react";
 export type Place = {
   id: string;
   description: string;
-  acessLevel: string;
+  accessLevel: string;
+  is_locked?: boolean;
 };
 
 export type PlaceNoId = Omit<Place, "id">;
@@ -44,6 +45,7 @@ const usePlaceAPI = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Bearer " + (localStorage.getItem("token")) || "",
         },
         body: JSON.stringify(place),
       });
@@ -69,6 +71,7 @@ const usePlaceAPI = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Bearer " + (localStorage.getItem("token")) || "",
         },
         body: JSON.stringify(place),
       });
@@ -92,6 +95,9 @@ const usePlaceAPI = () => {
     try {
       const response = await fetch(`${BASE_URL}/places/${id}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": "Bearer " + (localStorage.getItem("token")) || "",
+        }
       });
 
       if (!response.ok) {

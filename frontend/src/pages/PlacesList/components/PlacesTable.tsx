@@ -20,6 +20,9 @@ const PlacesTable: React.FC<PlacesTableProps> = ({
           NOME
         </h1>
         <h1 className="font-normal text-lg w-full text-gray-500">
+          STATUS
+        </h1>
+        <h1 className="font-normal text-lg w-full text-gray-500">
           NÍVEL DE ACESSO
         </h1>
         <span className="flex">
@@ -36,7 +39,14 @@ const PlacesTable: React.FC<PlacesTableProps> = ({
             {item.description}
           </h1>
           <h1 className="font-normal text-md w-full text-gray-500">
-            {item.acessLevel}
+            {item.is_locked ? (
+              <span className="badge badge-error badge-lg">Trancada</span>
+            ) : (
+              <span className="badge badge-success badge-lg">Aberta</span>
+            )}
+          </h1>
+          <h1 className="font-normal text-md w-full text-gray-500">
+            {item.accessLevel}
           </h1>
           <span className="flex">
             <MdOutlineModeEdit

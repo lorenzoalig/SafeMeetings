@@ -36,7 +36,7 @@ const useEditPlaceModal = (
       },
       {
         ...fields[1],
-        value: placeData?.acessLevel || "",
+        value: placeData?.accessLevel || "",
       },
     ]);
   }, [isOpen]);
@@ -53,7 +53,7 @@ const useEditPlaceModal = (
     const newPlace: Place = {
       id: placeData?.id || "",
       description: fields[0].value,
-      acessLevel: fields[1].value,
+      accessLevel: fields[1].value,
     };
     onPlaceSave(newPlace);
     setFields(initialState);
