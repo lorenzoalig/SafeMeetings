@@ -9,7 +9,6 @@ export interface LoginRequestBody {
 const BASE_URL = "http://localhost:3000";
 
 const useUserAPI = () => {
-  console.log("useUserAPI");
   const [error, setError] = useState<string | null>(null);
 
   const postLogin = async (body: LoginRequestBody) => {
